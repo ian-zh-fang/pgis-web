@@ -1,0 +1,53 @@
+﻿body,html {
+    font-size:12px;
+    font-family:微软雅黑;
+    width:100%;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+#mapeyePanel{
+    position: absolute;
+    z-index: 1113;
+    right:0px;
+    bottom:0px;
+    background-color:#c6d9f1;
+}
+
+.pgis-icon-format {
+    padding-left:20px;
+    height:20px;
+    line-height:20px;
+    background-repeat:no-repeat;
+    cursor:pointer;
+}
+
+.pagis-icon-btn {
+    margin-right:5px;
+}
+#topDiv{
+    /*background-color:#008ad2;*/
+    background-color:#d6e3f1;
+    padding:0px;
+    margin:0px;
+}
+
+/*********************************************************************
+*   外阴影
+**********************************************************************
+*/
+.b-shadow {
+    box-shadow:5px 5px;
+    cursor:pointer;
+}
+
+/*鼠标移动到元素之上，显示外阴影效果*/
+.b-panel {
+    /*border:1px solid #808080;*/
+    cursor:pointer;
+    
+}
+
+    .b-panel:hover {
+        box-shadow: 5px 5px;
+    }

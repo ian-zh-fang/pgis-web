@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <NType />
+  <NType ID="5db6cc02-c317-405d-bcc1-a8ef4856ea66" Name="电子警察" IconCls="1d600a19-11d2-4841-832f-53f4456eb7dc.png" Color="" Type="1" Remark="" />
+  <NType ID="48777533-323f-4171-99d5-64648534bfad" Name="禁停区（线）" IconCls="" Color="FFCC00" Type="2" Remark="" />
+  <NType ID="4a77aad6-d144-4f24-a21a-e5592d7cb822" Name="禁停区（面）" IconCls="" Color="FF6600" Type="3" Remark="" />
+</Root>

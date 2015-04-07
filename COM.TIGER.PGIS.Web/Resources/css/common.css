@@ -1,0 +1,83 @@
+﻿/*
+    通用层叠样式表    
+*/
+
+/*  带有指向性的标注
+    -------------------------
+    |           内容        |
+    |   ---------------------
+    |   |
+---------------------------------------------------  */
+.div-mark-tip {
+    border-top:1px transparent solid;
+    border-right:1px transparent solid;
+    border-left:5px #ddd solid;
+    border-bottom:5px transparent solid;
+    background-color:transparent;
+    text-align:left;
+    line-height:16px;
+    height:22px;
+    overflow:hidden;
+    font-size:.7em;
+    font-weight:700;
+}
+
+    .div-mark-tip .div-mark-tip-content {
+        background-color:#ddd;
+        padding-left:5px;
+        height:22px;
+        overflow:hidden;
+    }
+
+.div-mark-tip-active {
+    border-top:1px transparent solid;
+    border-right:1px transparent solid;
+    border-left:5px #ff6a00 solid;
+    border-bottom:5px transparent solid;
+    background-color:transparent;
+    text-align:left;
+    line-height:16px;
+    height:22px;
+    overflow:hidden;
+    font-size:11px;
+    font-weight:700;
+}
+
+    .div-mark-tip-active .div-mark-tip-active-content {
+        background-color:#ff6a00;
+        padding-left:5px;
+        height:22px;
+        overflow:hidden;
+    }
+
+/*  截断字符，裁剪内容，溢出用'...'标识
+------------------------------------------------------------------*/
+.content-cut {
+    /*width:90px;*/
+    height:25px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    cursor:pointer;
+}
+
+/*  a 标记
+------------------------------------------------------------------*/
+.a {
+    color:blue;
+    font-size:11px;
+    text-decoration:underline;
+    cursor:pointer;
+    /*text-align:center;*/
+}
+    .a:hover {
+        color:red;
+    }
+
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}

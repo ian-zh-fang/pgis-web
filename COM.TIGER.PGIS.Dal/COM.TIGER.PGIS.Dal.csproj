@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C6077D89-B87A-43E1-9E89-1FC98A0EDA39}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>COM.TIGER.PGIS.Dal</RootNamespace>
+    <AssemblyName>COM.TIGER.PGIS.Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\COM.TIGER.PGIS.Web\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\COM.TIGER.PGIS.DLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Capture.cs" />
+    <Compile Include="DAddress.cs" />
+    <Compile Include="Composition.cs" />
+    <Compile Include="DAdministrative.cs" />
+    <Compile Include="DArea.cs" />
+    <Compile Include="DBase.cs" />
+    <Compile Include="DBuilding.cs" />
+    <Compile Include="DAJJBXX.cs" />
+    <Compile Include="DCompany.cs" />
+    <Compile Include="DCompanyMark.cs" />
+    <Compile Include="DEmployee.cs" />
+    <Compile Include="DGlobalPositionSystem.cs" />
+    <Compile Include="DHotel.cs" />
+    <Compile Include="DJCJ_JJDB.cs" />
+    <Compile Include="DMark.cs" />
+    <Compile Include="DMonitor.cs" />
+    <Compile Include="DOfficer.cs" />
+    <Compile Include="DOwnerPic.cs" />
+    <Compile Include="DPatrolArea.cs" />
+    <Compile Include="DPatrolTrack.cs" />
+    <Compile Include="DPlan.cs" />
+    <Compile Include="DPopulation.cs" />
+    <Compile Include="DStatistics.cs" />
+    <Compile Include="DStreet.cs" />
+    <Compile Include="DStreetNum.cs" />
+    <Compile Include="DSys.cs" />
+    <Compile Include="DYJBJ.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\COM.TIGER.PGIS.Common\COM.TIGER.PGIS.Common.csproj">
+      <Project>{3000ab04-1f01-4241-9d55-c2e9b2f95f75}</Project>
+      <Name>COM.TIGER.PGIS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\COM.TIGER.PGIS.Model\COM.TIGER.PGIS.Model.csproj">
+      <Project>{cae8f575-7ed0-41f3-895d-91411311a6ca}</Project>
+      <Name>COM.TIGER.PGIS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

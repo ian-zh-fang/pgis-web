@@ -1,0 +1,162 @@
+﻿.bmenu {
+    background-image: url(../images/extshare/menu-show.gif) !important;
+}
+.brefresh{
+    background-image: url(../images/extshare/refresh.gif) !important;   
+}
+.bquit
+{
+    background-image: url(../images/extshare/door_out.png) !important;
+}
+.bpath
+{
+    background-image: url(../images/extshare/path.gif) !important;
+}
+.bflag
+{
+    background-image: url(../images/extshare/flag_green.png) !important;
+}
+.bcog
+{
+    background-image: url(../images/extshare/cog.png) !important;
+}
+.bworld
+{
+    background-image: url(../images/extshare/world.png) !important;
+}
+.bzoomin
+{
+    background-image: url(../images/extshare/zoom_in.png) !important;
+}
+.bzoomout
+{
+    background-image: url(../images/extshare/zoom_out.png) !important;
+}
+.beye {
+    background-image: url(../images/extshare/eye.png) !important;
+}
+.bbuilding {
+    background-image: url(../images/extshare/building.png) !important;
+}
+.bgroup {
+    background-image: url(../images/extshare/group.png) !important;
+}
+.bbell {
+    background-image: url(../images/extshare/bell.png) !important;
+}
+.bs {
+    background-image: url(../images/extshare/s1.png) !important;
+}
+.bbookmark {
+    background-image: url(../images/extshare/bookmark.gif) !important;
+}
+.btool {
+    background-image: url(../images/extshare/tool.png) !important;
+}
+.bserver {
+    background-image: url(../images/extshare/server.png) !important;
+}
+.badd {
+    background-image: url(../images/extshare/add.png) !important;
+}
+.bupdate {
+    background-image: url(../images/extshare/update.png) !important;
+}
+.bdel {
+    background-image: url(../images/extshare/delete.png) !important;
+}
+.bclear {
+    background-image: url(../images/extshare/clear.png) !important;
+}
+.bsave {
+    background-image: url(../images/extshare/save.gif) !important;
+}
+.bdoc {
+    background-image: url(../images/extshare/Doc.png) !important;
+}
+.bfile {
+    background-image: url(../images/extshare/Filetype.png) !important;
+}
+.x-form-color-trigger {
+    background-image: url('../images/extshare/trigger-color.gif') !important;
+}
+.buser {
+    background-image: url(../images/extshare/user.png) !important;
+}
+.bselect {
+    background-image: url(../images/extshare/select.png) !important;
+}
+.bcase {
+    background-image: url(../images/extshare/lightbulb.png) !important;
+}
+.bhotel {
+    background-image: url(../images/extshare/hotel.png) !important;
+}
+.bhouse {
+    background-image: url(../images/extshare/house.png) !important;
+}
+.bwebcam {
+    background-image: url(../images/extshare/webcam.png) !important;
+}
+.bwebcam_error {
+    background-image: url(../images/extshare/webcam_error.png) !important;
+}
+.bcar {
+    background-image: url(../images/extshare/car.png) !important;
+}
+.bzdcs {
+    background-image: url(../images/extshare/award_star_bronze_1.png) !important;
+}
+.bdwxx {
+    background-image: url(../images/extshare/asterisk_orange.png) !important;
+}
+.bchart_bar{
+    background-image: url(../images/extshare/chart_bar.png) !important;
+}
+.bheart{
+    background-image: url(../images/extshare/heart.png) !important;
+}
+.bwrench{
+    background-image: url(../images/extshare/wrench.png) !important;
+}
+.barea{
+    background-image: url(../images/extshare/chart_organisation.png) !important;
+}
+.bstop{
+    background-image: url(../images/extshare/stop.png) !important;
+}
+.bphoto {
+    background-image: url(../images/extshare/photo.png) !important;
+}
+.bphotos {
+    background-image: url(../images/extshare/photos.png) !important;
+}
+.bupload {
+    background-image: url(../images/extshare/up.gif) !important;
+}
+.btrash {
+    background-image: url(../images/extshare/trash.gif) !important;
+}
+.bcancel {
+    background-image: url(../images/extshare/cancel.gif) !important;
+}
+.bchart {
+    background-image: url(../images/extshare/chart_bar.png) !important;
+}
+.location {
+    background-image:url(../images/pin.png) !important;
+    width:32px;
+    height:32px;
+    line-height:32px;
+}
+
+.location_small {
+    background-image:url(../images/location.png) !important;
+}
+
+.formbutton{
+    position:absolute;
+    right: 10px;
+    bottom:10px;
+    color:red; 
+}

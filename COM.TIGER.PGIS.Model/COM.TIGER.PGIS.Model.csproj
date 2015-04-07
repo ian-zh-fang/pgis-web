@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CAE8F575-7ED0-41F3-895D-91411311A6CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>COM.TIGER.PGIS.Model</RootNamespace>
+    <AssemblyName>COM.TIGER.PGIS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AJJBXX.cs" />
+    <Compile Include="Capture.cs" />
+    <Compile Include="MAbroadPerson.cs" />
+    <Compile Include="MAddress.cs" />
+    <Compile Include="MAdministrative.cs" />
+    <Compile Include="Maptheme.cs" />
+    <Compile Include="MCaseTotal.cs" />
+    <Compile Include="MCount.cs" />
+    <Compile Include="MMarkType.cs" />
+    <Compile Include="MBase.cs" />
+    <Compile Include="MBuilding.cs" />
+    <Compile Include="MCompany.cs" />
+    <Compile Include="MCompanyMark.cs" />
+    <Compile Include="MEmployee.cs" />
+    <Compile Include="MFile.cs" />
+    <Compile Include="MAreaRange.cs" />
+    <Compile Include="MDepartment.cs" />
+    <Compile Include="MArea.cs" />
+    <Compile Include="MBelongTo.cs" />
+    <Compile Include="MGpsDevice.cs" />
+    <Compile Include="MGpsDeviceTrack.cs" />
+    <Compile Include="MHotel.cs" />
+    <Compile Include="MHotelStay.cs" />
+    <Compile Include="MJCJ_JJDB.cs" />
+    <Compile Include="MMark.cs" />
+    <Compile Include="MMenu.cs" />
+    <Compile Include="MMonitorDevice.cs" />
+    <Compile Include="MOfficer.cs" />
+    <Compile Include="MParam.cs" />
+    <Compile Include="MPass.cs" />
+    <Compile Include="MPassCar.cs" />
+    <Compile Include="MPatrolArea.cs" />
+    <Compile Include="MPatrolMonitor.cs" />
+    <Compile Include="MPatrolRecord.cs" />
+    <Compile Include="MPatrolTrack.cs" />
+    <Compile Include="MPlan.cs" />
+    <Compile Include="MPopulationBasicInfo.cs" />
+    <Compile Include="MRole.cs" />
+    <Compile Include="MOwnerInfo.cs" />
+    <Compile Include="MStreet.cs" />
+    <Compile Include="MStreetNum.cs" />
+    <Compile Include="MTag.cs" />
+    <Compile Include="MTemporaryPopulation.cs" />
+    <Compile Include="MVenues.cs" />
+    <Compile Include="MYJBJ.cs" />
+    <Compile Include="MOwnerPic.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MRoleMenu.cs" />
+    <Compile Include="MRooms.cs" />
+    <Compile Include="TotalClass.cs" />
+    <Compile Include="MUser.cs" />
+    <Compile Include="MUserRole.cs" />
+    <Compile Include="MUnit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\COM.TIGER.PGIS.Common\COM.TIGER.PGIS.Common.csproj">
+      <Project>{3000ab04-1f01-4241-9d55-c2e9b2f95f75}</Project>
+      <Name>COM.TIGER.PGIS.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

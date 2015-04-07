@@ -1,0 +1,332 @@
+﻿.bmenu {
+    background-image: url(../images/extshare/menu-show.gif) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.brefresh{
+    background-image: url(../images/extshare/refresh.gif) !important;   
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bquit
+{
+    background-image: url(../images/extshare/door_out.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bpath
+{
+    background-image: url(../images/extshare/path.gif) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bflag
+{
+    background-image: url(../images/extshare/flag_green.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bcog
+{
+    background-image: url(../images/extshare/cog.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bworld
+{
+    background-image: url(../images/extshare/world.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bzoomin
+{
+    background-image: url(../images/extshare/zoom_in.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bzoomout
+{
+    background-image: url(../images/extshare/zoom_out.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.beye {
+    background-image: url(../images/extshare/eye.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bbuilding {
+    background-image: url(../images/extshare/building.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bgroup {
+    background-image: url(../images/extshare/group.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bbell {
+    background-image: url(../images/extshare/bell.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bs {
+    background-image: url(../images/extshare/s1.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bbookmark {
+    background-image: url(../images/extshare/bookmark.gif) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.btool {
+    background-image: url(../images/extshare/tool.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bserver {
+    background-image: url(../images/extshare/server.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.badd {
+    background-image: url(../images/extshare/add.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bupdate {
+    background-image: url(../images/extshare/update.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+.bdel {
+    background-image: url(../images/extshare/delete.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+
+.location {
+    background-image:url(../images/pin.png) !important;
+    width:32px;
+    height:32px;
+    line-height:32px;
+}
+
+.location_small {
+    background-image:url(../images/pin.png) !important;
+    width:16px;
+    height:16px;
+    line-height:16px;
+}
+
+.x-form-color-trigger {
+    background-image: url('../images/extshare/trigger-color.gif') !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+
+.cursor {
+    cursor:pointer;
+}
+
+.background-repeat {
+    background-repeat:no-repeat;
+}
+
+/*  标注图标
+------------------------------------------------------------*/
+/*atm*/
+.atm {
+    background-image: url(../images/mark/atm.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*学校*/
+.school {
+    background-image: url(../images/mark/school.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*医院*/
+.hospital {
+    background-image: url(../images/mark/hospitalred.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*快递*/
+.dispatch {
+    background-image: url(../images/mark/dispatch.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*加油站*/
+.jyz {
+    background-image: url(../images/mark/jyz.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/**/
+.busstation {
+    background-image: url(../images/mark/bus-stop.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*汽车租赁*/
+.car {
+    background-image: url(../images/mark/car.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*长途汽车站*/
+.ctqcz {
+    background-image: url(../images/mark/ctqcz.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*典当*/
+.dd {
+    background-image: url(../images/mark/dd.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*禁毒大队*/
+.jddd {
+    background-image: url(../images/mark/jddd.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*金融网点*/
+.jrwd {
+    background-image: url(../images/mark/jrwd.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*交通警察*/
+.jtjc {
+    background-image: url(../images/mark/jtjc.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*网吧*/
+.wb {
+    background-image: url(../images/mark/wb.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*火车站*/
+.trainstation {
+    background-image: url(../images/mark/trainstation.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+
+}
+/*派出所*/
+.pcs {
+    background-image: url(../images/mark/pcs.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*刑侦大队*/
+.xzdd {
+    background-image: url(../images/mark/xzdd.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*幼儿园*/
+.yey {
+    background-image: url(../images/mark/yey.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*娱乐场所*/
+.ylcs {
+    background-image: url(../images/mark/ylcs.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*治安岗亭*/
+.zagt {
+    background-image: url(../images/mark/zagt.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+/*政府机关*/
+.zfjg {
+    background-image: url(../images/mark/zfjg.png) !important;
+    height:15px;
+    line-height:15px;
+    width:15px;
+}
+
+/*  截断字符，裁剪内容，溢出用'...'标识
+------------------------------------------------------------------*/
+.content-cut {
+    /*width:90px;*/
+    /*height:25px;*/
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    cursor:pointer;
+}
+
+/*  a 标记
+------------------------------------------------------------------*/
+.a {
+    color:blue;
+    font-size:11px;
+    text-decoration:underline;
+    cursor:pointer;
+    /*text-align:center;*/
+}
+    .a:hover {
+        color:red;
+    }
+
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
