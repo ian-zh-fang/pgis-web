@@ -221,6 +221,54 @@ function dealEventClickFrame(ulFrameNum, pcFrameInfo) {
 
 //========================================>视频播放处理结束
 
+var __transformdata = {
+    'Lat': {
+        Intercept: 28.1330657075451,
+        Variable1: 1.33787091963793E-06,
+        Variable2: -0.0000020215162449493
+    },
+    'Lng': {
+        Intercept: 106.789681858985,
+        Variable1: 1.65852591313745E-06,
+        Variable2: 2.58596774313365E-06
+    },
+    'X': {
+        Intercept: -42366937.9472284,
+        Variable1: 296730.555100016,
+        Variable2: 379595.202327182
+    },
+    'Y': {
+        Intercept: -14122049.5868561,
+        Variable1: 196378.300462638,
+        Variable2: -243454.671333262
+    }
+};
+
+
+function EPoint2ELatLng(epoint) {
+    ///<summary>2.5地图坐标转化成2维坐标 </summary>
+
+    return { Lat: __transformdata.Lat.Variable1 * epoint.X + (__transformdata.Lat.Variable2) * epoint.Y + (__transformdata.Lat.Intercept), Lng: __transformdata.Lng.Variable1 * epoint.X + __transformdata.Lng.Variable2 * epoint.Y + (__transformdata.Lng.Intercept) };
+}
+
+function ELatLng2EPoint(elatlng) {
+    ///<summary>2维地图坐标转化成2.5坐标</summary>
+
+    return {
+        X: parseInt(
+            __transformdata.X.Variable1 * elatlng.Lat +
+            __transformdata.X.Variable2 * elatlng.Lng +
+            (__transformdata.X.Intercept)
+           ),
+        Y: parseInt(
+            __transformdata.Y.Variable1 * elatlng.Lat +
+            __transformdata.Y.Variable2 * elatlng.Lng +
+            (__transformdata.Y.Intercept)
+           )
+    };
+}
+
+
 var ExtHelper = (function () {
     var _this = this;//私有属性
     var _myMask = {};
@@ -750,14 +798,14 @@ var ExtHelper = (function () {
             return fn;
         },
         CreatePlayPanel: function (options) {
-            var defaults = { callback: Ext.emptyFn };
+            var defaults = { callback: Ext.emptyFn, height:'100%', width:'100%' };
             Ext.apply(defaults, options);
 
             return {
                 xtype: 'panel',
                 //region:'center',
                 border: 0,
-                html: '<OBJECT ID="xcameraobject" WIDTH="100%" HEIGHT="100%" CLASSID="CLSID:2ACC923B-1125-4EA7-B93A-5F12BB452ED2" events=“true” ></OBJECT>',
+                html: Ext.util.Format.format('<OBJECT ID="xcameraobject" WIDTH="{1}" HEIGHT="{0}" CLASSID="CLSID:2ACC923B-1125-4EA7-B93A-5F12BB452ED2" events=“true” ></OBJECT>', defaults.height, defaults.width),
                 listeners: {
                     'render': function () {
                         var obj = small_active.object;
@@ -776,7 +824,7 @@ var ExtHelper = (function () {
             };
         },
         CameraPlay: function (o) {
-            var defaults = { ID: 0, DeviceID: '', IP: '', Port: 0, Pwd: '', Acct: '', Name: '' };
+            var defaults = { ID: 0, DeviceID: '', IP: '10.162.28.83', Port: 8800, Pwd: 'loadmin', Acct: 'loadmin', Name: '' };
             Ext.apply(defaults, o);
 
             var width = 640, height = 360;
@@ -790,19 +838,31 @@ var ExtHelper = (function () {
             });
 
             wind.add(this.CreatePlayPanel({
-                width: width,
-                height: height,
                 callback: function () {
-                    InitActiveX();                    
-                    if (DoLogin()) {
-                        DoStartPlay(defaults.DeviceID);
-                    }
+                    ExtHelper.CameraPlayEx(defaults);
                 }
             }));
             wind.on('close', function () {
                 DoStopPlay();
                 DoLogout();
             });
+        },
+        CameraPlayEx: function (options) {
+            var defaults = { ID: 0, DeviceID: '', IP: '10.162.28.83', Port: 8800, Pwd: 'loadmin', Acct: 'loadmin', Name: '' };
+            Ext.apply(defaults, o);
+
+            g_UserName = defaults.Acct;
+            g_PassWord = defaults.Pwd;
+            g_ServerIP = defaults.IP;
+            g_ServerPort = defaults.Port;
+
+            if (!defaults.DeviceID)
+                return errorState.show('设备不存在.');
+
+            InitActiveX();
+            if (DoLogin()) {
+                DoStartPlay(defaults.DeviceID);
+            }
         },
         ShowResult: function (o) {
             var c = Ext.getCmp('extEast');

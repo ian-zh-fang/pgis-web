@@ -193,23 +193,33 @@ var patroltrack = patroltrack || {};
     $.form.Show = function (options) {
         var me = this;        
         var form = me.Form(options);
-        var displaypanel = me.DisplayPanel({});
+        var displaypanel = me.DisplayPanel({
+            width: 350,
+            height: 370,
+            callback: function () {
+                ExtHelper.CameraPlayEx(options.data);
+            }
+        });
         var wind = ExtHelper.CreateWindow({ title: '监控设备查看', layout: 'border', height:373, resizable:false });
         wind.add({
-            region: 'center',
-            layout: 'fit',
+            region: 'west',
+            //layout: 'fit',
+            width: 350,
+            height: 370,
             border: 0,
             tbar: ['视频播放区：'],
             items: [{
+                width: 350,
+                height: 370,
                 style: String.Format('margin:{0}px {0}px {0}px {0}px;', 1),
                 border: 0,
                 items: [displaypanel]
             }]
         }, {
-            region: 'east',
+            region: 'center',
             layout: 'fit',
             //height: 100,
-            width: 250,
+            //width: 250,
             border: 0,
             items: [form]
         });

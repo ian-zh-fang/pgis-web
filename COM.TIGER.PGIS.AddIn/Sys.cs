@@ -13,6 +13,15 @@ namespace COM.TIGER.PGIS.AddIn
     [Export(typeof(ISys))]
     public class Sys:ISys
     {
+        //153 1126 0879
+        private const string HELPURLNAME = "HELPURL";
+
+        private static readonly string HELPURL;
+        static Sys()
+        {
+            HELPURL = System.Configuration.ConfigurationManager.AppSettings[HELPURLNAME];
+        }
+
         private DSys sys = new DSys();
         private StringBuilder sb = new StringBuilder();
         /// <summary>
@@ -25,6 +34,7 @@ namespace COM.TIGER.PGIS.AddIn
             menus.Sort();
 
             sb.Append("[");
+            //sb.Append(GetHelpMenu());
             List<MMenu> pmenus = menus.Where<MMenu>(i => i.PId == 0&&i.Disabled==1).ToList();
 
             if (pmenus.Count > 0)
@@ -48,6 +58,28 @@ namespace COM.TIGER.PGIS.AddIn
             sb.Append("]");
             return sb.ToString();
         }
+
+        /// <summary>
+        /// 获取帮助菜单
+        /// </summary>
+        /// <returns></returns>
+        private string GetHelpMenu() 
+        {
+            if (string.IsNullOrWhiteSpace(HELPURL))
+                return null;
+
+            string urlFmt = "text: '帮助',menuid:'{0}',key:'yhzx',style: 'text-align:left;',iconCls: 'bhelp'";
+            urlFmt = string.Format(urlFmt, GuidToDouble(), HELPURL);
+            urlFmt = string.Join("", "{", urlFmt, "}", ",'-',");
+            return urlFmt;
+        }
+
+        private double GuidToDouble()
+        {
+            byte[] buffer = Guid.NewGuid().ToByteArray();
+            return BitConverter.ToInt64(buffer, 0);
+        }
+
         /// <summary>
         /// 获取系统子菜单
         /// </summary>

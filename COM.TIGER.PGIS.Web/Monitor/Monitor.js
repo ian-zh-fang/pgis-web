@@ -86,7 +86,7 @@ var monitorManager = monitorManager || {};
             {
                 dataIndex: 'ID', text: '', lock: true, sortable: false, width: 70, renderer: function (value, obj, record) {
                     //debugger;
-                    var data = record.getData();
+                    var data = record.raw;
                     var val = JSON.stringify(data);
                     val = encodeURI(val);
                     var html = String.Format('<span class="a" onclick="monitorManager.locationCallback(\'{0}\')">定位</span>', val);

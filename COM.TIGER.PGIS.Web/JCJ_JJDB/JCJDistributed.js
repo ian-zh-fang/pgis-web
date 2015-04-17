@@ -251,6 +251,10 @@ var jcjDistribute = jcjDistribute || {};
         var defaults = { ID: null, Num: null, TypeID: null, TypeName: null, Tel: null, AlarmMan: null, Location: null, X: null, Y: null, AlarmTime: null, AdminID: null, AdminName: null };
         Ext.apply(defaults, options);
 
+        var point = ELatLng2EPoint({ Lat: defaults.X, Lng: defaults.Y });
+        defaults.X = point.X;
+        defaults.Y = point.Y;
+
         if (defaults.X && defaults.Y) {
             //绘制图像
             var html = String.Format("<img style='width:32px;height:32px;' src='../Resources/images/case/{0}.gif'  title='{1}'></img>", $.alarm.alarm_110, defaults.Location || defaults.Num);

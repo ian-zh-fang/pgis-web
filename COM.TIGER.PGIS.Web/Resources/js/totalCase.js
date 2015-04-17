@@ -57,17 +57,14 @@ var $ttcase = $ttcase || {};
             closable: true
         });
 
-        var mask = maskGenerate.start({ p: wind.getId(), msg: '正在获取，请稍等 ...' });
-        Object.$Get({
-            url: String.Format('{0}{1}', basic_url, r),
-            callback: function (a, b, c) {
-                mask.stop();
-                if (b) {
-                    var data = JSON.parse(c.responseText);
-                    var items = createTip(data.result);
-                    wind.add(items);
-                }
-            }
+        intervalTotal(wind, r);
+
+        var hinterval = setInterval(function () {
+            intervalTotal(wind, r);
+        }, 30000);
+
+        wind.on('close', function () {
+            clearInterval(hinterval);
         });
     };
 
@@ -79,6 +76,22 @@ var $ttcase = $ttcase || {};
             }
         });
     };
+
+    function intervalTotal(wind, r) {
+        var mask = maskGenerate.start({ p: wind.getId(), msg: '正在统计，请稍等 ...' });
+        Object.$Get({
+            url: String.Format('{0}{1}', basic_url, r),
+            callback: function (a, b, c) {
+                mask.stop();
+                if (b) {
+                    var data = JSON.parse(c.responseText);
+                    var items = createTip(data.result);
+                    wind.removeAll();
+                    wind.add(items);
+                }
+            }
+        });
+    }
 
     function createTip(d) {
         var defaults = { TodayTickCount: 0, ThisWeekTickCount: 0, ThisMonthTickCount: 0, ThisYearTickCount: 0 }

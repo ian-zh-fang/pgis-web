@@ -150,7 +150,7 @@ var CreateViewport = function () {
                 items: [{
                     //text: '工具栏',
                     iconCls: 'bbookmark'
-                }, '->', {
+                }, '<a href="http://www.baidu.com" target="_blank">帮助</a>', '->', {
                     text: '鹰眼',
                     handler: onItemToggle,
                     code: 'yingyan',

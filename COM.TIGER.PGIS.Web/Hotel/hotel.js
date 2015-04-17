@@ -76,7 +76,14 @@ var $hotel = $hotel || {};
         { dataIndex: 'BedCount', text: '床位数', width:55, sortable: false, hidden: false },
         { dataIndex: 'StarLevel', text: '星级', width: 45, sortable: false, hidden: true },
         { dataIndex: 'Disable', text: '有效', width: 45, sortable: false, hidden: true },
-        { dataIndex: 'Address', text: '详细地址', flex: 2, sortable: false, hidden: false },
+        {
+            dataIndex: 'Address', text: '详细地址', flex: 2, sortable: false, hidden: false, renderer: function (a, b, c) {
+                if (a)
+                    return a.Content;
+
+                return '<span style="color:red;">N/A</span>';
+            }
+        },
         {
             dataIndex: 'ID', text: '', width: 45, sortable: false, hidden: false, renderer: function (a, b, c) {
                 var data = c.getData();
@@ -190,6 +197,8 @@ var $hotel = $hotel || {};
                     if (b.result.result > 0) {
                         defaults.callback();
                         wind.close();
+                    }else if(b.result.result == -100){
+                        errorState.show("当前地址不存在.");
                     } else {
                         errorState.show(errorState.SubmitFail);
                     }

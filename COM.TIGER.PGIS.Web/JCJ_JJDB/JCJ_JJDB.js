@@ -250,6 +250,11 @@ var JCJ_JJDBManager = JCJ_JJDBManager || {};
     function locationCallback(options) {
         //debugger;
         var defaults = Ext.apply({}, options, $.model.defaults);
+
+        var point = ELatLng2EPoint({ Lat: defaults.X, Lng: defaults.Y });
+        defaults.X = point.X;
+        defaults.Y = point.Y;
+
         if (defaults.X && defaults.Y) {
             //绘制图像
             var html = String.Format("<img style='width:32px;height:32px;' src='../Resources/images/case/{0}.gif'  title='{1}'></img>", $.alarm.alarm_110, defaults.Location || defaults.Num);
