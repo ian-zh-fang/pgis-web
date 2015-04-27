@@ -41,6 +41,10 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         };
         Ext.apply(defaults, track);
 
+        var point = ELatLng2EPoint({ Lat: defaults.X, Lng: defaults.Y });
+        defaults.X = point.X + 121382;
+        defaults.Y = point.Y + 53652;
+
         //在地图上显示定位信息
         var imgname = "policeman.png";
         if(defaults.Device && defaults.Device.DType == 2)
@@ -145,6 +149,10 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
                     var coords = [];
                     Ext.Array.each(records, function (record, index, arr) {
                         var dat = record.getData();
+                        var point = ELatLng2EPoint({ Lat: dat.X, Lng: dat.Y });
+                        dat.X = point.X;
+                        dat.Y = point.Y;
+                        
                         defaults.loaded(dat);
                         coords.push(dat.X);
                         coords.push(dat.Y);
@@ -423,6 +431,17 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
     ];
 
     $.form = qForm.getQueryForm(qForm.qFormType.panelQuery, function (coords) {
+        //将2.5D地图坐标转换成GPS坐标
+
+        var point = null;
+        for (var i = 0; i < coords.length - 1; i += 2) {
+            point = EPoint2ELatLng({ X: coords[i], Y: coords[i + 1] });
+            coords[i] = point.Lat;
+            coords[i + 1] = point.Lng;
+        }
+        delete point;
+        delete i;
+
         EMap.Clear();
         $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
             req: 'qcoords',

@@ -143,6 +143,14 @@
 .bchart {
     background-image: url(../images/extshare/chart_bar.png) !important;
 }
+
+.balarm{
+    width:16px;
+    height:16px;
+    background-image: url(../images/emergency-on.png) !important;
+    background-repeat:no-repeat;
+}
+
 .location {
     background-image:url(../images/pin.png) !important;
     width:32px;

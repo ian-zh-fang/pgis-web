@@ -138,6 +138,7 @@
     <Content Include="Resources\images\case\school.png" />
     <Content Include="Resources\images\case\bank.gif" />
     <Content Include="Resources\images\case\bank.png" />
+    <Content Include="Resources\images\emergency-on.png" />
     <Content Include="Resources\images\ExtShare\add.png" />
     <Content Include="Resources\images\ExtShare\asterisk_orange.png" />
     <Content Include="Resources\images\ExtShare\award_star_bronze_1.png" />

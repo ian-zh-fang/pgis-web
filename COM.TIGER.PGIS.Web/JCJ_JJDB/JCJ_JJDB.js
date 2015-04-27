@@ -252,8 +252,8 @@ var JCJ_JJDBManager = JCJ_JJDBManager || {};
         var defaults = Ext.apply({}, options, $.model.defaults);
 
         var point = ELatLng2EPoint({ Lat: defaults.X, Lng: defaults.Y });
-        defaults.X = point.X;
-        defaults.Y = point.Y;
+        defaults.X = point.X + 121382;
+        defaults.Y = point.Y + 53652;
 
         if (defaults.X && defaults.Y) {
             //绘制图像

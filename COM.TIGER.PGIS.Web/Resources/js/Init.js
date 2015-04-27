@@ -150,7 +150,25 @@ var CreateViewport = function () {
                 items: [{
                     //text: '工具栏',
                     iconCls: 'bbookmark'
-                }, '<a href="http://www.baidu.com" target="_blank">帮助</a>', '->', {
+                }, '<a href="#" target="_blank">帮助</a>', '->', {
+                    text: '实时三台合一',
+                    handler: function () {
+                        //
+                    },
+                    iconCls: 'bcase'
+                }, {
+                    text: '实时一键报警',
+                    handler: function () {
+                        //
+                    },
+                    iconCls: 'bcase'
+                }, {
+                    text: '显示所有监控设备',
+                    handler: function () {
+                        //
+                    },
+                    iconCls: 'bwebcam'
+                }, {
                     text: '鹰眼',
                     handler: onItemToggle,
                     code: 'yingyan',
