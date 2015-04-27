@@ -7,6 +7,7 @@ var jcjDistribute = jcjDistribute || {};
 (function ($) {
     //全局私有变量
     var intervalHandler = null;//获取数据循环，当停止时，需要释放当前的循环，并清空
+    var intervalTime = 10000;//
     var url = 'JCJ_JJDB/JCJ_JJDBHandler.ashx?req=';
 
     //原型
@@ -154,6 +155,18 @@ var jcjDistribute = jcjDistribute || {};
         });
         return form;
     };
+
+    $.realtime = function () {
+        clearInterval(intervalHandler);
+        intervalHandler = setInterval(function () {
+            var now = new Date();
+            now = new Date(now.getTime() - 60000);
+            intervalCallback({
+                TimeStart: now
+            });
+        }, intervalTime);
+    };
+
     //转换时间格式 '/Date(1406158863000+0800)/' 为 格林威治标准时间
     function parseDate(dateStr) {
         var date = null;
@@ -221,30 +234,31 @@ var jcjDistribute = jcjDistribute || {};
             }
             return params;
         }
-
-        function intervalCallback(options) {
-            var defaults = { TimeStart: undefined };
-            Ext.apply(defaults, options);
-            //获取后台数据
-            Ext.Ajax.request({
-                url: url + '3',
-                method: 'POST',
-                params: { timestart: defaults.TimeStart },
-                success: function (response, options) {
-                    //debugger;
-                    if (response.status == 200) {
-                        var data = Ext.JSON.decode(response.responseText);
-                        for (var i = 0; i < data.length; i++) {
-                            showCase(data[i]);
-                        }
-                    }
-                },
-                failure: function (response) {
-                    //errorState.show(errorState.LoadException);
-                }
-            });
-        }
     }
+    
+    function intervalCallback(options) {
+        var defaults = { TimeStart: undefined };
+        Ext.apply(defaults, options);
+        //获取后台数据
+        Ext.Ajax.request({
+            url: url + '3',
+            method: 'POST',
+            params: { timestart: defaults.TimeStart },
+            success: function (response, options) {
+                //debugger;
+                if (response.status == 200) {
+                    var data = Ext.JSON.decode(response.responseText);
+                    for (var i = 0; i < data.length; i++) {
+                        showCase(data[i]);
+                    }
+                }
+            },
+            failure: function (response) {
+                //errorState.show(errorState.LoadException);
+            }
+        });
+    }
+
     //显示案件信息到地图
     function showCase(options) {
         //debugger;

@@ -22,6 +22,9 @@ namespace COM.TIGER.PGIS.Web.Monitor
                     //后台分页管理
                     Pagging();
                     break;
+                case "al":
+                    AllDevices();
+                    break;
                 case "add":    
                     //添加新的监控设备信息
                     AddEntity(EntityType.MONITOR);
@@ -81,6 +84,12 @@ namespace COM.TIGER.PGIS.Web.Monitor
                 default:
                     break;
             }
+        }
+
+        private void AllDevices()
+        {
+            List<Model.MMonitorDevice> devices = _instance.AllDevices();
+            Execute(HttpContext.Current, devices, true);
         }
 
         private void QueryDistribute()

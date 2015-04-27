@@ -100,6 +100,7 @@
     <Content Include="MapTool.aspx" />
     <Content Include="Mark\MarkQuery.js" />
     <Content Include="Monitor\Monitor.js" />
+    <Content Include="Monitor\MonitorDevice.js" />
     <Content Include="Monitor\MonitorDistributed.js" />
     <Content Include="Monitor\MonitorManager.js" />
     <Content Include="Officer\officerManager.js" />

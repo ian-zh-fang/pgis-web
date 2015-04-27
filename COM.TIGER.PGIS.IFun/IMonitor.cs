@@ -36,6 +36,8 @@ namespace COM.TIGER.PGIS.IFun
 
         Model.TotalClass<List<Model.MMonitorDevice>> PageQuery(string name, string num, int dotypeid, string address, int index, int size);
 
+        List<Model.MMonitorDevice> AllDevices();
+
         List<Model.MAddress> Match(string pattern);
 
         List<Model.MMonitorDevice> Query(string coords);

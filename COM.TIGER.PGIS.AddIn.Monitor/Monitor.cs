@@ -87,5 +87,10 @@ namespace COM.TIGER.PGIS.AddIn.Monitor
         {
             return _handler.Query(coords);
         }
+
+        public List<Model.MMonitorDevice> AllDevices()
+        {
+            return _handler.AllDevices();
+        }
     }
 }

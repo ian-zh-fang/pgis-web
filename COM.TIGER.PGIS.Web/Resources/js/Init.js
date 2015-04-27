@@ -9,6 +9,8 @@
 /// <reference path="Menu.js" />
 /// <reference path="menuHandler.js" />
 /// <reference path="maptheme.js" />
+/// <reference path="../../Monitor/MonitorDevice.js" />
+/// <reference path="../../JCJ_JJDB/JCJDistributed.js" />
 
 //@当前登录用户
 var x_current_user = null;
@@ -154,18 +156,41 @@ var CreateViewport = function () {
                     text: '实时三台合一',
                     handler: function () {
                         //
-                    },
-                    iconCls: 'bcase'
-                }, {
-                    text: '实时一键报警',
-                    handler: function () {
-                        //
+                        function loadHd(c) {
+                            if (typeof jcjDistribute !== 'undefined') {
+                                return c();
+                            }
+
+                            Ext.Loader.loadScript({
+                                url: 'JCJ_JJDB/JCJDistributed.js', onLoad: function () {
+                                    c();
+                                }
+                            });
+                        }
+
+                        loadHd(function () {
+                            jcjDistribute.realtime();
+                        });
                     },
                     iconCls: 'bcase'
                 }, {
                     text: '显示所有监控设备',
                     handler: function () {
-                        //
+                        function loadHd(c) {
+                            if (typeof $monitordevice !== 'undefined') {
+                                return c();
+                            }
+
+                            Ext.Loader.loadScript({
+                                url: 'Monitor/MonitorDevice.js', onLoad: function () {
+                                    c();
+                                }
+                            });
+                        }
+
+                        loadHd(function () {
+                            $monitordevice.show();
+                        });
                     },
                     iconCls: 'bwebcam'
                 }, {

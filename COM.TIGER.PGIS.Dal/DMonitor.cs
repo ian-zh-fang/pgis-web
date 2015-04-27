@@ -97,5 +97,10 @@ namespace COM.TIGER.PGIS.Dal
         {
             return Post<List<Model.MMonitorDevice>>("Query", CONTROLLERNAME, string.Format("coords={0}", coords)).Result;
         }
+
+        public List<Model.MMonitorDevice> AllDevices()
+        {
+            return Post<List<Model.MMonitorDevice>>("GetMonitorDevices", CONTROLLERNAME).Result;
+        }
     }
 }

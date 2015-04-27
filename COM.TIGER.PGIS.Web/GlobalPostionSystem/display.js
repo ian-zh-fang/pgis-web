@@ -50,7 +50,7 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         if(defaults.Device && defaults.Device.DType == 2)
             imgname = "police.png";
 
-        var html = String.Format('<div style="width:32px; text-align:center;"><img style="width:32px;height:32px;" src="{0}{1}"  title="{2}" ></img></div>', imgpath, imgname, defaults.Device ? defaults.Device.OfficerID || defaults.Device.CarNum || defaults.Device.DeviceID : defaults.DeviceID);
+        var html = String.Format('<div style="width:32px; text-align:center;"><img style="width:32px;height:32px;" src="{0}{1}"  title="{2}" alt="{2}" ></img></div>', imgpath, imgname, defaults.Device ? defaults.Device.OfficerID || defaults.Device.CarNum || defaults.Device.DeviceID : defaults.DeviceID);
         EMap.AppendEntity(String.Format('{0}', defaults.ID), { x: defaults.X, y: defaults.Y, exX: 16, exY: 16 }, {
             html: html, callback: $.TrackPointClick, args: {
                 data: defaults
@@ -112,7 +112,12 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
                 ID: 0, DeviceID: null, OfficerID: null, BindTime: null, CarID: 0, CarNum: '', DType: 0
             }
         };
+
         var track = Object.$DecodeObj(val);
+        var point = ELatLng2EPoint({ Lat: track.X, Lng: track.Y });
+        track.X = point.X;
+        track.Y = point.Y;
+
         $.DisplayDevice(track);
         EMap.MoveTo(track.X, track.Y);
     };
