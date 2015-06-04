@@ -849,7 +849,7 @@ var ExtHelper = (function () {
         },
         CameraPlayEx: function (options) {
             var defaults = { ID: 0, DeviceID: '', IP: '10.162.28.83', Port: 8800, Pwd: 'loadmin', Acct: 'loadmin', Name: '' };
-            Ext.apply(defaults, o);
+            Ext.apply(defaults, options);
 
             g_UserName = defaults.Acct;
             g_PassWord = defaults.Pwd;
@@ -857,7 +857,7 @@ var ExtHelper = (function () {
             g_ServerPort = defaults.Port;
 
             if (!defaults.DeviceID)
-                return errorState.show('设备不存在.');
+                return alert('设备不存在.');
 
             InitActiveX();
             if (DoLogin()) {

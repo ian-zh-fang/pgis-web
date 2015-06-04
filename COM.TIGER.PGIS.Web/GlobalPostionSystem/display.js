@@ -42,8 +42,8 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         Ext.apply(defaults, track);
 
         var point = ELatLng2EPoint({ Lat: defaults.X, Lng: defaults.Y });
-        defaults.X = point.X + 121382;
-        defaults.Y = point.Y + 53652;
+        defaults.X = point.X;
+        defaults.Y = point.Y;
 
         //在地图上显示定位信息
         var imgname = "policeman.png";
@@ -56,7 +56,8 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
                 data: defaults
             }
         });
-        //EMap.MoveTo(defaults.X, defaults.Y);
+
+        return defaults;
     };
 
     $.TrackPointClick = function (track) {
@@ -65,7 +66,10 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
                 ID: 0, DeviceID: null, OfficerID: null, BindTime: null, CarID: 0, CarNum: '', DType: 0
             }
         };
-        Ext.apply(defaults, track);
+        Ext.apply(defaults, track.data);
+        var point = EPoint2ELatLng({ X: defaults.X, Y: defaults.Y });
+        defaults.X = point.Lat;
+        defaults.Y = point.Lng;
 
         var imgname = 'policeman.png';
         if (defaults.Device && defaults.Device.DType == 2) {
@@ -114,12 +118,12 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         };
 
         var track = Object.$DecodeObj(val);
-        var point = ELatLng2EPoint({ Lat: track.X, Lng: track.Y });
-        track.X = point.X;
-        track.Y = point.Y;
+        //var point = ELatLng2EPoint({ Lat: track.X, Lng: track.Y });
+        //track.X = point.X;
+        //track.Y = point.Y;
 
-        $.DisplayDevice(track);
-        EMap.MoveTo(track.X, track.Y);
+        var val = $.DisplayDevice(track);
+        EMap.MoveTo(val.X, val.Y);
     };
 
     $.ShowResultPanel = function (component) {
