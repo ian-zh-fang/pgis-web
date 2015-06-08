@@ -11,6 +11,7 @@ var markQuery = markQuery || {};
     var url = 'Mark/MarkHelp.ashx?req=';
     //结果面板容器ID
     var resultcontainerid = 'extEast';
+    var querycontainerid = 'cQueryCondition';
 
     //原型
     $.fn = $.constructor.prototype;
@@ -183,6 +184,12 @@ var markQuery = markQuery || {};
                             EMap.MoveTo(data.X, data.Y);
                         }
                     }
+                },
+                resize: function () {
+                    var h = Ext.getCmp(querycontainerid).getHeight();
+                    h -= 26;
+                    errorState.show(h);
+                    t.setHeight(h);
                 }
             },
             root: {
