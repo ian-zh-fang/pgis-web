@@ -168,6 +168,7 @@ var markQuery = markQuery || {};
         var t = new Ext.tree.TreePanel({
             model: this.model.type,
             store: store,
+            autoScroll:true,
             border: false,
             rootVisible: false,
             multiSelect: false,

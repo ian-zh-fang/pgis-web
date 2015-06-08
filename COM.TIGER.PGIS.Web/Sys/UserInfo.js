@@ -253,22 +253,22 @@ var userHandler = userHandler || {};
 
             var form = btn.up('form').getForm();
             if (form.isValid()) {
-                startMask({ msg: '正在保存数据...', p: w.getId() });
+                var mask = maskGenerate.start({ msg: '正在保存数据...', p: w.getId() });
                 form.submit({
                     url: String.Format('{0}updata', basic_url),
                     success: function (form, action) {
-                        stopMask();
+                        mask.stop();
                         w.close();
                         var response = Ext.JSON.decode(action.response.responseText);
                         if (response.success) {
                             errorState.show('保存数据成功');
-                            getUserInfo();
+                            getUserInfo(undefined);
                         } else {
                             errorState.show('保存数据失败');
                         }
                     },
                     failure: function (form, action) {
-                        stopMask();
+                        mask.stop();
                         errorState.show('保存数据失败');
                         w.close();
                     }

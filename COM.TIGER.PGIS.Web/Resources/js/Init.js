@@ -488,12 +488,16 @@ function getUserInfo(c) {
             response = Ext.apply({}, response, responseDefault);
             var data = Ext.decode(response.responseText);
             if (data.result.state) {
-                c();
+                var f = typeof c !== 'undefined' && c instanceof Function;
+                if (f) {
+                    c();
+                }
+
                 showInfomation({
                     component: {
                         xtype: 'panel',
                         border: 0,
-                        html: displayAt(data)
+                        html: displayAt(data, f)
                     }
                 });
             } else {
@@ -532,7 +536,7 @@ function getUserInfo(c) {
         }
     }
 
-    function displayAt(data) {
+    function displayAt(data, f) {
         var defaults = {
             //用户信息
             ID: 0, Code: null, UserName: null, Password: null, Name: null, DepartmentID: 0, Gender: 0, Lvl: 0, Disabled: 0, CPassword: null, DepartmentName: null, OfficerID: 0,
@@ -543,7 +547,8 @@ function getUserInfo(c) {
         };
         Ext.apply(defaults, data.result.result);
         x_current_user = defaults;
-        InitMenu();
+
+        if (f) InitMenu();
 
         var now = new Date();
         var html = '';
