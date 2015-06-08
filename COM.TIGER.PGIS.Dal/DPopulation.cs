@@ -48,7 +48,7 @@ namespace COM.TIGER.PGIS.Dal
                 string.Format("countryid={0}", 0),
                 string.Format("cardtypeid={0}", 0),
                 string.Format("cardtypeno={0}", string.Empty),
-                string.Format("visatypeid={0}", visaid),
+                string.Format("visatypeid={0}", string.IsNullOrWhiteSpace(visaid) ? "0" : visaid),
                 string.Format("visano={0}", string.Empty),
                 string.Format("entryport={0}", portid),
                 string.Format("address={0}", addr),
