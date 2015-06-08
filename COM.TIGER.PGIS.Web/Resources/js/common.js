@@ -248,7 +248,12 @@ var __transformdata = {
 function EPoint2ELatLng(epoint) {
     ///<summary>2.5地图坐标转化成2维坐标 </summary>
 
-    return { Lat: __transformdata.Lat.Variable1 * epoint.X + (__transformdata.Lat.Variable2) * epoint.Y + (__transformdata.Lat.Intercept), Lng: __transformdata.Lng.Variable1 * epoint.X + __transformdata.Lng.Variable2 * epoint.Y + (__transformdata.Lng.Intercept) };
+    var p = { Lat: __transformdata.Lat.Variable1 * epoint.X + (__transformdata.Lat.Variable2) * epoint.Y + (__transformdata.Lat.Intercept), Lng: __transformdata.Lng.Variable1 * epoint.X + __transformdata.Lng.Variable2 * epoint.Y + (__transformdata.Lng.Intercept) };
+
+    p.Lat = p.Lat.toFixed(6);
+    p.Lng = p.Lng.toFixed(6);
+
+    return p;
 }
 
 function ELatLng2EPoint(elatlng) {
