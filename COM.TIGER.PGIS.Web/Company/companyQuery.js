@@ -104,7 +104,7 @@ var $companyquery = $companyquery || {};
         if (!defaults.req)
             throw new ReferenceError();
 
-        defaults.url = String.Format('{0}{1}{2}', $.supper.basic_url, defaults.req, getParams(defaults.params));
+        defaults.url = String.Format('{0}{1}{2}', $.supper.basic_url, defaults.req, defaults.params ? null : getParams(defaults.params));
         defaults.url = encodeURI(defaults.url);
         var store = ExtHelper.CreateStore(defaults);
         return store;
