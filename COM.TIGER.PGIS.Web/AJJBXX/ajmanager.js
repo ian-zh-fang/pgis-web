@@ -120,7 +120,7 @@ var $ajmanager = $ajmanager || {};
     $.Grid = function (options) {
         var defaults = { req: 'query', total: true, params: {}, cb: Ext.emptyFn };
         Ext.apply(defaults, options);
-        defaults.req = String.Format('{0}&{1}', defaults.req, getParams(defaults.params));
+        defaults.req = String.Format('{0}&{1}', defaults.req, defaults.params ? null : getParams(defaults.params));
 
         var store = $.supper.store.Store(defaults);
         var grid = ExtHelper.CreateGridNoCheckbox({ store: store, columns: columns, pager: defaults.total });

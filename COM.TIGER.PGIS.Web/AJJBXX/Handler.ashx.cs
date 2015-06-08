@@ -45,9 +45,15 @@ namespace COM.TIGER.PGIS.Web.AJJBXX
             var bh = HttpContext.Current.Request["bh"];
             string xm = HttpContext.Current.Request["xm"];
             string cnb = HttpContext.Current.Request["cnb"];
-            int isdrup = int.Parse(HttpContext.Current.Request["isdrup"]);
-            int ispursuit = int.Parse(HttpContext.Current.Request["ispursuit"]);
-            int isarrest = int.Parse(HttpContext.Current.Request["isarrest"]);
+
+            string isdrupstr = HttpContext.Current.Request["isdrup"];
+            int isdrup = string.IsNullOrWhiteSpace(isdrupstr) ? 0 : int.Parse(isdrupstr);
+
+            string ispursuitstr = HttpContext.Current.Request["ispursuit"];
+            int ispursuit = string.IsNullOrWhiteSpace(ispursuitstr) ? 0 : int.Parse(ispursuitstr);
+
+            string isarreststr = HttpContext.Current.Request["isarrest"];
+            int isarrest = string.IsNullOrWhiteSpace(isarreststr) ? 0 : int.Parse(isarreststr);
 
             var data = _instance.Query(bh, xm, cnb, isdrup, ispursuit, isarrest, CurrentPage, PagerSize);
             ExecuteSerialzor(data);
