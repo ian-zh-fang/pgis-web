@@ -171,6 +171,12 @@ var $room = $room || {};
                     id: northid,
                     items: []
                 }, {
+                    region: 'center',
+                    layout: 'fit',
+                    style: 'margin-top:1px;',
+                    //split: true,
+                    items: []
+                }, {
                     //xtype: 'panel',
                     region: 'center',
                     layout: 'fit',
@@ -178,7 +184,12 @@ var $room = $room || {};
                     style: 'margin-top:1px;',
                     split: true,
                     items: []
-                }]
+                }],
+                listeners: {
+                    resize: function () {
+                        Ext.getCmp(centerid).setHeight(Ext.getCmp(panelid).getHeight() - Ext.getCmp(northid).getHeight());
+                    }
+                }
             }]
         });
         roomgrid.on('selectionchange', function () {
