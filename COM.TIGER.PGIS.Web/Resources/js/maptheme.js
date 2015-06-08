@@ -39,7 +39,9 @@ var $maptheme = $maptheme || {};
             this.Load = function () {
                 EMap.GetCurrentWindowCoords(function (coords) {
                     Object.$Get({
-                        url: String.Format('{0}maptheme', basic_url), params: { tp: me.mod, x1: coords[0].X, y1: coords[0].Y, x2: coords[2].X, y2: coords[2].Y }, callback: function (a, b, c) {
+                        url: String.Format('{0}maptheme', basic_url),
+                        params: { tp: me.mod, x1: coords[0].X, y1: coords[0].Y, x2: coords[2].X, y2: coords[2].Y },
+                        callback: function (a, b, c) {
                             if (!b) {
                                 return errorState.show(errorState.LoadError);
                             }
