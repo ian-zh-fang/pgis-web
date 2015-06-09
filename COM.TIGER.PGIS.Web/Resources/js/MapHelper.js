@@ -1,5 +1,8 @@
-﻿/// <reference path="extjs4.2/ext-all.js" />
+﻿
+/// <reference path="extjs4.2/ext-all.js" />
 /// <reference path="maptheme.js" />
+/// <reference path="maskLoad.js" />
+/// <reference path="Buildings/buildingQuery.js" />
 
 var vM, vMe;
 var _BuildingPopLayer;
@@ -181,8 +184,40 @@ function CreateMap() {
 var EMap = {
     vmap/*当前地图对象*/: vM,
     ShowBuildingPop: function (spot) {
-        var content = "<div style='margin-top:20px'>名称：" + spot.Name + "</div>";
-        vM.InfoWindow.Open(content, spot.Cx, spot.Cy);
+        var defaults = { ID: null, Name: null, Cx:0, Cy:0 };
+        Ext.apply(defaults, spot);
+
+        //var content = "<div style='margin-top:20px'>名称：<span class='a' title='点击查看详细信息' >" + defaults.Name + "</span></div>";
+        //vM.InfoWindow.Open(content, defaults.Cx, defaults.Cy);
+        var mask = maskGenerate.start({msg:'正在获取数据，请稍等 ...'});
+        Object.$Get({
+            url: 'Buildings/BuildingHelp.ashx?req=getbd',
+            params: { ids: defaults.ID },
+            callback: function (options, success, response) {
+                mask.stop();
+                if (!success)
+                    return errorState.show(errorState.LoadError);
+
+                var items =[].concat(Ext.JSON.decode(response.responseText));
+                if (items.length > 0)
+                {
+                    loadBuildingDetail(function () {
+                        buildingQuery.ShowDetail(items[0]);
+                    });
+                }
+            }
+        });
+
+        function loadBuildingDetail(c) {
+
+            if (typeof buildingQuery !== 'undefined' && c instanceof Function) {
+                return c();
+            }
+
+            LoadModlues.loadJS(typeof $bunit, 'Buildings/buildingQuery.js', function () {
+                c();
+            });
+        }
     },
     ViewSpotAreas: function (s) {
         vM.ViewSpotAreas(s);

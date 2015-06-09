@@ -294,5 +294,10 @@ namespace COM.TIGER.PGIS.AddIn.Building
         {
             return _instance.PopuAdd(addr, ids);
         }
+
+        public List<Model.MOwnerInfoEx> GetBuilding(params string[] ids)
+        {
+            return _instance.GetBuilding(ids);
+        }
     }
 }

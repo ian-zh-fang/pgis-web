@@ -11,6 +11,8 @@ namespace COM.TIGER.PGIS.IFun
     /// </summary>
     public interface IBuilding
     {
+        List<Model.MOwnerInfoEx> GetBuilding(params string[] ids);
+
         Model.TotalClass<List<Model.MOwnerInfoEx>> PageBuildings(string name, int index, int size);
 
         Model.TotalClass<List<Model.MOwnerInfoEx>> PageBuildingOnNameAndAddr(string name, string addr, int index, int size);

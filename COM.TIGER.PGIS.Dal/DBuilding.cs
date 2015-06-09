@@ -10,6 +10,12 @@ namespace COM.TIGER.PGIS.Dal
     {
         private const string CONTROLNAME = "Building";
 
+        public List<Model.MOwnerInfoEx> GetBuilding(params string[] ids)
+        {
+            return Post<List<Model.MOwnerInfoEx>>("GetBuilding", CONTROLNAME,
+                string.Format("ids={0}", string.Join(",", ids))).Result;
+        }
+
         public Model.TotalClass<List<Model.MOwnerInfoEx>> PageBuildings(string name, int index, int size)
         {
             return Post<Model.TotalClass<List<Model.MOwnerInfoEx>>>("PagingBuildings", CONTROLNAME,

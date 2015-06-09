@@ -209,9 +209,20 @@ namespace COM.TIGER.PGIS.Web.Buildings
                     //@ 选择添加单位信息
                     CompanyAdd();
                     break;
+                    //@ 获取指定ID的大楼信息
+                case "getbd":
+                    GetBuilding();
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void GetBuilding()
+        {
+            string ids = HttpContext.Current.Request["ids"];
+            var data = _instance.GetBuilding(ids);
+            ExecuteSerialzor(data);
         }
 
         private void CompanyAdd()
