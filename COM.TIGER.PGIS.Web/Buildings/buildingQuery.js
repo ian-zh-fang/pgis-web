@@ -133,7 +133,9 @@ var buildingQuery = buildingQuery || {};
                 { name: 'AdminName' },//行政区划名称
                 { name: 'RoomStructureID' },//大楼结构ID
                 { name: 'RoomStructure' },//大楼结构名称
-                { name: 'ElementHot' }  //热区信息详细信息
+                { name: 'ElementHot' },  //热区信息详细信息
+                { name: 'MEH_CenterX' },
+                { name: 'MEH_CenterY' }
             ]
         });
     })(Object.$Supper($, 'model'));
@@ -164,10 +166,14 @@ var buildingQuery = buildingQuery || {};
             { dataIndex: 'MOI_OwnerTel', text: '联系电话', flex: 1, hidden: true },
             { dataIndex: 'MOI_OwnerDes', text: '备注', flex: 1, hidden: true },
             {
-                dataIndex: 'MOI_ID', /*text: '',*/ width: 40, renderer: function (a, b, c) {
+                dataIndex: 'MOI_ID', /*text: '',*/ width: 80, renderer: function (a, b, c) {
                     var data = c.getData();
                     var v = encodeObj(data);
-                    return String.Format('<span class="a" onclick="{0}(\'{1}\')">&nbsp;查看</span>', 'buildingQuery.grid.Detail', v);
+                    var str = String.Format('<span class="a" onclick="{0}(\'{1}\')">&nbsp;查看</span>', 'buildingQuery.grid.Detail', v);
+                    str += "&nbsp;&nbsp;&nbsp;";
+                    str += String.Format('<span class="a" onclick="{0}(\'{1}\')">&nbsp;定位</span>', 'buildingQuery.grid.Location', v);
+
+                    return str;
                 }
             }
         ];
@@ -184,6 +190,28 @@ var buildingQuery = buildingQuery || {};
         me.Detail = function (v) {
             var d = decodeObj(v);
             ShowDetail(d);
+        };
+
+        me.Location = function (v) {
+            var data = decodeObj(v);
+            var defaults = { MEH_CenterX: 0, MEH_CenterY: 0, MOI_OwnerName: '', MOI_OwnerAddress: '', MOI_ID: 0 };
+            Ext.apply(defaults, data);
+
+            var html = String.Format('<div style="cursor:pointer; color:#15498b; font-size:11px; font-weight:700; background-color:#ddd; text-align:center; line-height:{1}px;" title="{0}({2})   点击查看详细" >{0}</div>', defaults.MOI_OwnerName, 16, defaults.MOI_OwnerAddress);
+            EMap.AppendEntityEx({
+                id: String.Format("x-bd-locate-{0}", defaults.MOI_ID),
+                width: 65,
+                height: 16,
+                x: defaults.MEH_CenterX,
+                y: defaults.MEH_CenterY,
+                innerHTML: html,
+                className: 'content-cut a',
+                click: function () {
+                    ShowDetail(data);
+                }
+            });
+
+            EMap.MoveTo(defaults.MEH_CenterX, defaults.MEH_CenterY);
         };
 
     })(Object.$Supper($, 'grid'));
@@ -592,6 +620,8 @@ var buildingQuery = buildingQuery || {};
             {
                 dataIndex: 'IsPsychosis', text: '重点人口', sortable: false, hidden: false, width: 100, renderer: function (a, b, c) {
                     switch (a) {
+                        case 1:
+                            return 'Yes';
                         default:
                             return 'N/A';
                     }
@@ -615,7 +645,8 @@ var buildingQuery = buildingQuery || {};
                 dataIndex: 'ID', text: '操作', sortable: false, hidden: false, width: 55, renderer: function (a, b, c) {
                     var data = c.getData();
                     var val = $.supper.encodeObj(data);
-                    return String.Format('<span class="a" onclick="{0}(\'{1}\')">详细...</span>', 'buildingQuery.Population.grid.ShowDetail', val);
+                    var str = String.Format('<span class="a" onclick="{0}(\'{1}\')">详细...</span>', 'buildingQuery.Population.grid.ShowDetail', val);
+                    return str;
                 }
             }
         ];

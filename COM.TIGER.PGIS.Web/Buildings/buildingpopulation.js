@@ -127,10 +127,20 @@ var $bpop = $bpop || {};
             { dataIndex: 'CurrentAddress', text: '当前住址', sortable: false, hidden: true, flex:2 },
             {
                 dataIndex: 'LiveType', text: '居住性质', sortable: false, hidden: true, flex: 1, renderer: function (a, b, c) {
-                    switch (a) {
-                        default:
-                            return '未知';
-                    }
+                    //errorState.show(a.get('LiveTypeID'));
+                    //switch (a) {
+                    //    case 1:
+                    //        return "常住";
+                    //    case 2:
+                    //        return "暂住";
+                    //    case 3:
+                    //        return "入境";
+                    //    case 4:
+                    //        return "重点";
+                    //    default:
+                    //        return 'N/A';
+                    //}
+                    return a;
                 }
             },
             {

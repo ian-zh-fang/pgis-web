@@ -311,11 +311,11 @@ namespace COM.TIGER.PGIS.Dal
                         sy += e.Count;
                         break;
                     case 3:
-                        zd = e.Count;
+                        jw = e.Count;
                         sy += e.Count;
                         break;
                     case 4:
-                        jw = e.Count;
+                        zd = e.Count;
                         sy += e.Count;
                         break;
                     default:
