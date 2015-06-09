@@ -188,7 +188,6 @@ var markQuery = markQuery || {};
                 resize: function () {
                     var h = Ext.getCmp(querycontainerid).getHeight();
                     h -= 26;
-                    errorState.show(h);
                     t.setHeight(h);
                 }
             },

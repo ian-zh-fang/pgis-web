@@ -12,6 +12,7 @@
     <link href="Resources/css/Default.css" rel="stylesheet" />
     <link href="Resources/css/common.css" rel="stylesheet" />
     <link href="Resources/css/ExtShare.css" rel="stylesheet" />
+    <link href="Resources/css/CustomDef.css" rel="stylesheet" />
     <link href="Resources/js/extjs4.2/ux/css/TabScrollerMenu.css" rel="stylesheet" />
     <script type="text/javascript" src="Resources/js/extjs4.2/bootstrap.js"></script>
     <script type="text/javascript" src="Resources/js/extjs4.2/locale/ext-lang-zh_CN.js"></script>

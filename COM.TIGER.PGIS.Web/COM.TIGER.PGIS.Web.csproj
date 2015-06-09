@@ -113,6 +113,8 @@
     <Content Include="Population\Population.js" />
     <Content Include="Population\populationDetail.js" />
     <Content Include="Resources\css\common.css" />
+    <Content Include="Resources\css\CustomDef.css" />
+    <Content Include="Resources\css\CustomDefList.txt" />
     <Content Include="Resources\css\Default.css" />
     <Content Include="Resources\css\ExtShare.css" />
     <Content Include="Resources\css\login.css" />
@@ -4011,6 +4013,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\" />
+    <Folder Include="Resources\css\customdef\" />
     <Folder Include="ViolatedParkAndCapture\res\" />
   </ItemGroup>
   <PropertyGroup>

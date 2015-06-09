@@ -592,6 +592,7 @@ var InitMap = function () {
             initMapGDI();
             loadCSS('Resources/css/MapIcon.css');
             loadCSS('Resources/css/common.css');
+            loadCSS('Resources/css/CustomDef.css');
         }
     });
 };
@@ -619,6 +620,17 @@ function loadCSS(filename) {
     f.type = 'text/css';
     f.href = filename;
     vm.ContentWindow.document.getElementsByTagName('head')[0].appendChild(f);
+}
+
+function loadCustomDefCss() {
+    var filename = 'Resources/css/CustomDef.css';
+    loadCSS(filename);
+    
+    var cssFile = document.createElement('link');
+    cssFile.setAttribute('type', 'text/css');
+    cssFile.setAttribute('rel', 'stylesheet');
+    cssFile.setAttribute('href', filename);
+    document.getElementsByTagName('head')[0].appendChild(cssFile);
 }
 
 function getParams(p) {

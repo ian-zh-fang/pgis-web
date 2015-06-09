@@ -150,6 +150,9 @@ namespace COM.TIGER.PGIS.Web.Plan
             //预案ID
             var id = int.Parse(c.Request["id"]);
             var e = GetQueryParamsCollection<Model.MTag>();
+            //此处创建新的icon，并保存
+            var iconfile = c.Request.Files["IconCls"];
+            e.IconCls = SaveIconCls(iconfile);
             var data = _plan.InsertEntity(e, id);
             Execute(c, data);
         }

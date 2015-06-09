@@ -11,6 +11,9 @@ namespace COM.TIGER.PGIS.Web
     public class PageBase : System.Web.UI.Page
     {
         protected const string CONFIGPATH = "Config\\";
+        protected const string CUSTOMDEFCSSFILENAME = "Resources\\css\\CustomDef.css";
+        protected const string CUSTOMDEFCSSLISTFILENAME = "Resources\\css\\CustomDefList.txt";
+
         //文件物理路径
         protected string MapPth
         {
@@ -259,6 +262,79 @@ namespace COM.TIGER.PGIS.Web
         }
 
         /// <summary>
+        /// 根据上传图片文件，创建ICON，并保存
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        protected string SaveIconCls(HttpPostedFile file, string path = "Resources\\css\\customdef")
+        {
+            string rootpath = HttpContext.Current.Server.MapPath("/");
+            FileInfoExtention fileinfo = new FileInfoExtention().SaveAs(file, string.Format("{0}{1}", rootpath, path));
+            //文件保存错误，返回null
+            if (fileinfo.Error)
+                return string.Empty;
+            //文件保存成功，进一步生成自定义样式，并保存到自定义样式文件，和样式清单文件
+            string clsname = string.Format("cdf{0}", fileinfo.Alias);
+            StringBuilder strbuilder = new StringBuilder();
+            strbuilder.AppendFormat(".{0}", clsname);
+            strbuilder.Append("{");
+            strbuilder.AppendFormat("height:15px;line-height:15px;width:15px;background-image: url(customdef/{0}.{1}) !important;", fileinfo.Alias, fileinfo.Suffix);
+            strbuilder.Append("}");
+            string clscontent = strbuilder.ToString();
+            if (SaveIconClsDef(clscontent) > 0 && SaveIconClsDefList("$" + clsname) > 0)
+                return clsname;
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        private int SaveIconClsDef(string content)
+        {
+            string rootpath = HttpContext.Current.Server.MapPath("/");
+            string filename = string.Format("{0}{1}", rootpath, CUSTOMDEFCSSFILENAME);
+            return SaveContent(content, filename);
+        }
+
+        private int SaveIconClsDefList(string content)
+        {
+            string rootpath = HttpContext.Current.Server.MapPath("/");
+            string filename = string.Format("{0}{1}", rootpath, CUSTOMDEFCSSLISTFILENAME);
+            return SaveContent(content, filename);
+        }
+
+        private int SaveContent(string content, string filename)
+        {
+            int flag = 0;
+            System.IO.StreamWriter writer = null;
+            try
+            {
+                writer = new System.IO.StreamWriter(filename, true);
+                writer.WriteLine(content);
+                writer.Flush();
+
+                flag = 1;
+            }
+            catch (Exception)
+            {
+                flag = 0;
+            }
+            finally
+            {
+                if (writer != null)
+                {
+                    writer.Close();
+                    writer.Dispose();
+                }
+            }
+            return flag;
+        }
+
+        /// <summary>
         /// 保存文件到指定的相对路径
         /// <para>如果没有指定相对路径，那么保存站点根目录底下的Uploads文件根目录底下</para>
         /// </summary>
@@ -396,7 +472,7 @@ namespace COM.TIGER.PGIS.Web
             /// </summary>
             public string Name { get; set; }
 
-            private string _alias = Guid.NewGuid().ToString();
+            private string _alias = BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0).ToString();
             /// <summary>
             /// 文件名称被加密后的名称，文件以加密后的名称保存到指定的路径
             /// </summary>
@@ -411,6 +487,16 @@ namespace COM.TIGER.PGIS.Web
             /// 文件类型，表示为文件后缀
             /// </summary>
             public string Suffix { get; set; }
+
+            /// <summary>
+            /// 错误信息
+            /// </summary>
+            public Exception Exception { get; private set; }
+
+            /// <summary>
+            /// 错误标志
+            /// </summary>
+            public bool Error { get; private set; }
 
             /// <summary>
             /// 保存文件到指定的相对路径
@@ -435,6 +521,11 @@ namespace COM.TIGER.PGIS.Web
                         this.Name = file.FileName.Remove(index < 0 ? file.FileName.Length - 1 : index);
                         this.Size = file.ContentLength;
                         this.Suffix = suffix;
+                    }
+                    catch (Exception ex) 
+                    {
+                        this.Exception = ex;
+                        this.Error = true;
                     }
                     finally { }
                 }

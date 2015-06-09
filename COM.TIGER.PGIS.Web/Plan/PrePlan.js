@@ -950,6 +950,7 @@ PPM = preplanManager = (function () {
                                 type: 1,
                                 planid: defaults.ID,
                                 callback: function () {
+                                    loadCustomDefCss();
                                     store.load();
                                 }
                             });
@@ -1136,6 +1137,18 @@ PPM = preplanManager = (function () {
                     triggerAction: 'all',// 显示所有下列数据，一定要设置属性triggerAction为all
                     selectOnFocus: true
                 });
+                form.add({
+                    xtype: 'filefield',
+                    fieldLabel: '添加图标;',
+                    id: Ext.id(),
+                    name: 'IconCls',
+                    blankText: '',
+                    buttonText: '浏览...',
+                    buttonConfig: {
+                        iconCls: 'bzoomin'
+                    },
+                    textAlign: 'center'
+                });
                 break;
             case 2:
                 //线
@@ -1157,7 +1170,7 @@ PPM = preplanManager = (function () {
             fieldLabel: '描述信息',
             name: 'Description',
             width: 550,
-            height: 170,
+            height: 156,
             allowBlank: false
         });
         if (defaults.data) {
@@ -1167,7 +1180,7 @@ PPM = preplanManager = (function () {
         var win = ExtHelper.CreateWindow({
             title: defaults.title,
             width: 580,
-            height: 325
+            height: 350
         });
         win.add(form);
         return form;
