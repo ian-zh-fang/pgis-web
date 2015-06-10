@@ -16,11 +16,13 @@ var PImgPlayer = {
     _container: null,
     _index: 0,
     _imgs: [],
+    _click:function(items, index){},
     intervalTime: 3500,        //轮播间隔时间   
-    init: function (objID, w, h, time) {
+    init: function (objID, w, h, time, clickcallback) {
 
         if (!this._items.length) return;
 
+        this._click = clickcallback;
         this.intervalTime = time || this.intervalTime;
         this._container = document.getElementById(objID);
         this._container.style.display = "block";
@@ -53,7 +55,7 @@ var PImgPlayer = {
             linkStyle += "progid:DXImageTransform.Microsoft.Stretch ( duration=0.5,stretchStyle=PUSH )";
             linkStyle += "progid:DXImageTransform.Microsoft.Strips ( duration=0.5,motion=rightdown )";
             linkStyle += "progid:DXImageTransform.Microsoft.Wheel ( duration=0.5,spokes=8 )";
-            linkStyle += "progid:DXImageTransform.Microsoft.Zigzag ( duration=0.5,gridSizeX=4,gridSizeY=40 ); width: 100%; height: 100%";
+            linkStyle += "progid:DXImageTransform.Microsoft.Zigzag ( duration=0.5,gridSizeX=4,gridSizeY=40 ); width: 100%; height: 100%; cursor:pointer;";
         }
         //   
         var ulStyle = "margin:0;width:" + w + "px;position:absolute;z-index:999;right:5px;FILTER:Alpha(Opacity=50,FinishOpacity=50, Style=1);overflow: hidden;bottom:-1px;height:16px; border-right:1px solid #fff;";
@@ -77,7 +79,7 @@ var PImgPlayer = {
             ulHTML += "</li>";
         }
         //   
-        var html = "<a href=\"" + this._items[this._index].link + "\" title=\"" + this._items[this._index].title + "\" target=\"_blank\" style=\"" + linkStyle + "\"></a><ul style=\"" + ulStyle + "\">" + ulHTML + "</ul>";
+        var html = "<A dataSrc=\"" + this._items[this._index].img + "\" title=\"" + this._items[this._index].title + "\" onclick=\"PImgPlayer.clickHandler();return false;\" style=\"" + linkStyle + "\"></A><ul style=\"" + ulStyle + "\">" + ulHTML + "</ul>";
         this._container.innerHTML = html;
         var link = this._container.getElementsByTagName("A")[0];
         link.style.width = w + "px";
@@ -85,6 +87,9 @@ var PImgPlayer = {
         link.style.background = 'url(' + this._items[0].img + ') no-repeat center center';
         //   
         this._timer = setInterval("PImgPlayer.play()", this.intervalTime);
+    },
+    clickHandler: function () {
+        this._click(this._items, this._index);
     },
     addItem: function (_title, _link, _imgURL) {
         this._items.push({ title: _title, link: _link, img: _imgURL });

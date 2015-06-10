@@ -378,7 +378,10 @@ var buildingQuery = buildingQuery || {};
 
                                         var width = me.getWidth() - 10;
                                         var height = me.getHeight() - 10;
-                                        PImgPlayer.init(imgid, width, height, 3500);
+                                        PImgPlayer.init(imgid, width, height, 3500, function (items, index) {
+                                            //var img = items[index];
+                                            buildingQuery.PicManager.init(items, index).show();                                            
+                                        });
                                     }
                                 });
                             }
@@ -403,6 +406,49 @@ var buildingQuery = buildingQuery || {};
     };
 
 })(buildingQuery.createSupper('Basic'));
+
+(function ($) {
+
+    var _items = [];
+    var _index = 0;
+
+    $.init = function (items, index) {
+        _items = [].concat(items);
+        _index = index ? index : 0;
+
+        return $;
+    };
+
+    $.show = function () {
+        var img = _items[_index];
+        var wnd = ExtHelper.CreateWindow({ title: '大楼图片查看，点击图片查看下一张', height: 500, width: 800 });
+        wnd.add({
+            layout: 'fit',
+            html: Ext.util.Format.format('<img src="{0}" height="463" width="790" title="点击查看下一张" onclick="buildingQuery.PicManager.next(this)" style="cursor:pointer;"></img>', img.img)
+        });
+
+        return wnd;
+    };
+
+    $.next = function (imgElement) {
+        setIndex();
+        var img = _items[_index];
+        if (img)
+            imgElement.setAttribute('src', img.img);
+    }
+
+    function setIndex() {
+        if (_index < 0)
+            return _index = 0;
+        
+        _index++;
+        if (_index >= _items.length)
+            return _index = 0;
+
+        return _index;
+    }
+
+})(buildingQuery.createSupper('PicManager'));
 
 (function ($) {
 
