@@ -173,8 +173,10 @@ namespace COM.TIGER.PGIS.Web.Plan
             var id = int.Parse(c.Request["id"]);
             var e = GetQueryParamsCollection<Model.MTag>();
             //此处创建新的icon，并保存
-            HttpPostedFile iconfile = c.Request.Files["IconCls"];            
-            e.IconCls = SaveIconCls(iconfile);
+            HttpPostedFile iconfile = c.Request.Files["IconCls"];
+            if (iconfile != null && iconfile.ContentLength > 0)
+                e.IconCls = SaveIconCls(iconfile);
+
             var data = _plan.InsertEntity(e, id);
             Execute(c, data);
         }
