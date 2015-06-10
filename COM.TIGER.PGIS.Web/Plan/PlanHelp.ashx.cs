@@ -66,9 +66,31 @@ namespace COM.TIGER.PGIS.Web.Plan
                 case "doc":
                     DocumentManager();
                     break;
+                case "iconcls":
+                    GetIconCls();
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void GetIconCls()
+        {
+            string[] clses = ReadCustomDef();
+            IconCls[] icons = new IconCls[clses.Length];
+            for (int i = 0; i < clses.Length; i++)
+            {
+                System.Text.StringBuilder str = new System.Text.StringBuilder();
+                str.AppendFormat("<div class=\"{0}\" style=\"height:20px; line-height:20px; background-repeat:no-repeat; padding-left:30px;\">{0}<div>", clses[i]);
+
+                icons[i] = new IconCls() 
+                {
+                    Name = clses[i],
+                    Value = str.ToString()
+                };
+            }
+
+            ExecuteSerialzor(icons);
         }
 
         /// <summary>
@@ -151,7 +173,7 @@ namespace COM.TIGER.PGIS.Web.Plan
             var id = int.Parse(c.Request["id"]);
             var e = GetQueryParamsCollection<Model.MTag>();
             //此处创建新的icon，并保存
-            var iconfile = c.Request.Files["IconCls"];
+            HttpPostedFile iconfile = c.Request.Files["IconCls"];            
             e.IconCls = SaveIconCls(iconfile);
             var data = _plan.InsertEntity(e, id);
             Execute(c, data);

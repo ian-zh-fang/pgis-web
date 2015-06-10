@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -269,9 +272,10 @@ namespace COM.TIGER.PGIS.Web
         /// <returns></returns>
         protected string SaveIconCls(HttpPostedFile file, string path = "Resources\\css\\customdef")
         {
+
             string rootpath = HttpContext.Current.Server.MapPath("/");
             FileInfoExtention fileinfo = new FileInfoExtention().SaveAs(file, string.Format("{0}{1}", rootpath, path));
-            //文件保存错误，返回null
+            ////文件保存错误，返回null
             if (fileinfo.Error)
                 return string.Empty;
             //文件保存成功，进一步生成自定义样式，并保存到自定义样式文件，和样式清单文件
@@ -279,13 +283,164 @@ namespace COM.TIGER.PGIS.Web
             StringBuilder strbuilder = new StringBuilder();
             strbuilder.AppendFormat(".{0}", clsname);
             strbuilder.Append("{");
-            strbuilder.AppendFormat("height:15px;line-height:15px;width:15px;background-image: url(customdef/{0}.{1}) !important;", fileinfo.Alias, fileinfo.Suffix);
+            strbuilder.AppendFormat("height:32px; line-height:32px; width:32px; background-image: url(\"data:image/{0};base64,{1}\") !important;", fileinfo.Suffix.ToLower(), FileToBase64(file));
             strbuilder.Append("}");
             string clscontent = strbuilder.ToString();
             if (SaveIconClsDef(clscontent) > 0 && SaveIconClsDefList("$" + clsname) > 0)
                 return clsname;
 
             return string.Empty;
+        }
+
+        private Image GetPicThumbnail(HttpPostedFile file, int dWidth, int dHeight, string savepath, int flag = 100)
+        {
+            System.Drawing.Image iSource = null;
+            Graphics g = null;
+            System.Drawing.Bitmap img = null;
+            try
+            {
+                iSource = Image.FromStream(file.InputStream);
+                ImageFormat tFormat = iSource.RawFormat;
+
+                int sW = 0, sH = 0;
+                Size tem_size = new Size(iSource.Width, iSource.Height);
+                if (tem_size.Width > dHeight || tem_size.Width > dWidth)
+                {
+                    if ((tem_size.Width * dHeight) > (tem_size.Height * dWidth))
+                    {
+                        sW = dWidth;
+                        sH = (dWidth * tem_size.Height) / tem_size.Width;
+                    }
+                    else
+                    {
+                        sH = dHeight;
+                        sW = (tem_size.Width * dHeight) / tem_size.Height;
+                    }
+                }
+                else
+                {
+                    sW = tem_size.Width;
+                    sH = tem_size.Height;
+                }
+
+                img = new Bitmap(dWidth, dHeight);
+                g = Graphics.FromImage(img);
+                g.Clear(Color.WhiteSmoke);
+                g.CompositingQuality = CompositingQuality.HighQuality;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.DrawImage(iSource, new Rectangle((dWidth - sW) / 2, (dHeight - sH) / 2, sW, sH), 0, 0, iSource.Width, iSource.Height, GraphicsUnit.Pixel);
+
+                EncoderParameters ep = new EncoderParameters();
+                long[] qy = new long[1];
+                qy[0] = flag;//设置压缩的比例1-100
+                EncoderParameter eParam = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, qy);
+                ep.Param[0] = eParam;
+
+                ImageCodecInfo[] arrayICI = ImageCodecInfo.GetImageEncoders();
+                ImageCodecInfo jpegICIinfo = null;
+                for (int x = 0; x < arrayICI.Length; x++)
+                {
+                    if (arrayICI[x].FormatDescription.Equals("JPEG"))
+                    {
+                        jpegICIinfo = arrayICI[x];
+                        break;
+                    }
+                }
+
+                if (jpegICIinfo != null)
+                {
+                    img.Save(savepath, jpegICIinfo, ep);//dFile是压缩后的新路径
+                }
+                else
+                {
+                    img.Save(savepath, tFormat);
+                }
+            }
+            catch (Exception) { img = null; }
+            finally
+            {
+                if (iSource != null)
+                {
+                    iSource.Clone();
+                    iSource.Dispose();
+                }
+
+                if (g != null)
+                {
+                    g.Dispose();
+                }
+            }
+
+            return img;
+        }
+
+        private string FileToBase64(HttpPostedFile file)
+        {
+            string content = null;
+            System.IO.Stream stream = null;
+            try
+            {
+                stream = file.InputStream;
+                byte[] buffer = new byte[file.ContentLength];
+                int offset = stream.Read(buffer, 0, file.ContentLength);
+                content = Convert.ToBase64String(buffer);
+            }
+            catch (Exception) { content = null; }
+            finally
+            {
+                if (null != stream)
+                {
+                    stream.Close();
+                    stream.Dispose();
+                }
+            }
+            return content;
+        }
+
+        /// <summary>
+        /// 读取用户自定义 ICON
+        /// </summary>
+        /// <returns></returns>
+        protected string[] ReadCustomDef()
+        {
+            string rootpath = HttpContext.Current.Server.MapPath("/");
+            string filename = string.Format("{0}{1}", rootpath, CUSTOMDEFCSSLISTFILENAME);
+            string content = ReadFileContent(filename);
+            if (string.IsNullOrWhiteSpace(content))
+                return new string[0];
+
+            string[] items = null;
+            try
+            {
+                items = content.Replace("\r\n", "").Split('#')[1].Split(new char[] { '$' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            catch(Exception) 
+            {
+                items = new string[0];
+            }
+            return items;
+        }
+
+        private string ReadFileContent(string filename)
+        {
+            string content = null;
+            System.IO.StreamReader reader = null;
+            try
+            {
+                reader = new System.IO.StreamReader(filename);
+                content = reader.ReadToEnd();
+            }
+            catch (Exception) { content = null; }
+            finally
+            {
+                if (null != reader)
+                {
+                    reader.Close();
+                    reader.Dispose();
+                }
+            }
+            return content;
         }
 
         /// <summary>
@@ -531,6 +686,13 @@ namespace COM.TIGER.PGIS.Web
                 }
                 return this;
             }
+        }
+
+        public sealed class IconCls
+        {
+            public string Name { get; set; }
+
+            public string Value { get; set; }
         }
     }
 }

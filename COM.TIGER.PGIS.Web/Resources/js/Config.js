@@ -592,7 +592,7 @@ var InitMap = function () {
             initMapGDI();
             loadCSS('Resources/css/MapIcon.css');
             loadCSS('Resources/css/common.css');
-            loadCSS('Resources/css/CustomDef.css');
+            loadCustomDefCss();
         }
     });
 };
@@ -622,15 +622,20 @@ function loadCSS(filename) {
     vm.ContentWindow.document.getElementsByTagName('head')[0].appendChild(f);
 }
 
-function loadCustomDefCss() {
-    var filename = 'Resources/css/CustomDef.css';
-    loadCSS(filename);
-    
+function loadCustomDefCss() {   
+    document.getElementsByTagName('head')[0].appendChild(createCssFile(100));
+    vEdushiMap.ContentWindow.document.getElementsByTagName('head')[0].appendChild(createCssFile(101));
+}
+
+function createCssFile(interval)
+{
+    var filename = 'Resources/css/CustomDef.css?v=' + ((new Date()).getTime() + parseInt(interval));
     var cssFile = document.createElement('link');
     cssFile.setAttribute('type', 'text/css');
     cssFile.setAttribute('rel', 'stylesheet');
     cssFile.setAttribute('href', filename);
-    document.getElementsByTagName('head')[0].appendChild(cssFile);
+
+    return cssFile;
 }
 
 function getParams(p) {

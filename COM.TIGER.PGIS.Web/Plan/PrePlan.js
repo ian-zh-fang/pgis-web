@@ -5,6 +5,7 @@
 /// <reference path="MapHelper.js" />
 /// <reference path="mapGDI.js" />
 /// <reference path="../Resources/js/Config.js" />
+/// <reference path="../Resources/js/common.js" />
 
 var PPM /*alias at preplanManager*/, preplanManager;
 PPM = preplanManager = (function () {
@@ -951,6 +952,7 @@ PPM = preplanManager = (function () {
                                 planid: defaults.ID,
                                 callback: function () {
                                     loadCustomDefCss();
+                                    args.grid.tag.form.iconstore.reload();
                                     store.load();
                                 }
                             });
@@ -1052,6 +1054,24 @@ PPM = preplanManager = (function () {
             }
         });
     };
+       
+    args.grid.tag.form.iconstore = (function () {
+        var iconmodel = Ext.id();
+        Ext.define(iconmodel, {
+            extend: 'Ext.data.Model',
+            fields: [
+                { name: 'Name' },
+                { name: 'Value' }
+            ]
+        });
+        var iconstore = ExtHelper.CreateStore({
+            model: iconmodel,
+            url: 'Plan/PlanHelp.ashx?req=iconcls',
+            total: false
+        });
+
+        return iconstore;
+    })();
     args.grid.tag.form.editForm = function (options) {
         var me = this;
         var supper = args;
@@ -1119,7 +1139,8 @@ PPM = preplanManager = (function () {
         });
         switch (defaults.type) {
             case 1:
-                //点
+                //点                
+
                 form.add({
                     xtype: 'combobox',
                     id: 'MenuIconcls',
@@ -1127,15 +1148,18 @@ PPM = preplanManager = (function () {
                     width: 550,
                     name: 'Iconcls',
                     hiddenName: 'Iconcls',
-                    store: menusIconBind,
+                    store: args.grid.tag.form.iconstore,
                     queryMode: 'local',
-                    displayField: 'd',
-                    valueField: 'v',
+                    displayField: 'Name',
+                    valueField: 'Name',
                     emptyText: '',
                     forceSelection: false,// 必须选择一个选项
                     blankText: '请选择',
                     triggerAction: 'all',// 显示所有下列数据，一定要设置属性triggerAction为all
-                    selectOnFocus: true
+                    selectOnFocus: true,
+                    tpl: '<ul class="x-list-plain"><tpl for=".">' +
+                        '<li class="x-boundlist-item"><div class="{Name}" style="height:20px; line-height:20px; background-repeat:no-repeat; padding-left:30px;">&nbsp;&nbsp;&nbsp;&nbsp;{Name}<div></li>' +
+                        '</tpl></ul>'
                 });
                 form.add({
                     xtype: 'filefield',
