@@ -197,20 +197,21 @@ var buildingQuery = buildingQuery || {};
             var defaults = { MEH_CenterX: 0, MEH_CenterY: 0, MOI_OwnerName: '', MOI_OwnerAddress: '', MOI_ID: 0 };
             Ext.apply(defaults, data);
 
-            var html = String.Format('<div style="cursor:pointer; color:#15498b; font-size:11px; font-weight:700; background-color:#ddd; text-align:center; line-height:{1}px;" title="{0}({2})   点击查看详细" >{0}</div>', defaults.MOI_OwnerName, 16, defaults.MOI_OwnerAddress);
-            EMap.AppendEntityEx({
-                id: String.Format("x-bd-locate-{0}", defaults.MOI_ID),
-                width: 65,
-                height: 16,
-                x: defaults.MEH_CenterX,
-                y: defaults.MEH_CenterY,
-                innerHTML: html,
-                className: 'content-cut a',
-                click: function () {
-                    ShowDetail(data);
-                }
-            });
+            //var html = String.Format('<div style="cursor:pointer; color:#15498b; font-size:11px; font-weight:700; background-color:#ddd; text-align:center; line-height:{1}px;" title="{0}({2})   点击查看详细" >{0}</div>', defaults.MOI_OwnerName, 16, defaults.MOI_OwnerAddress);
+            //EMap.AppendEntityEx({
+            //    id: String.Format("x-bd-locate-{0}", defaults.MOI_ID),
+            //    width: 65,
+            //    height: 16,
+            //    x: defaults.MEH_CenterX,
+            //    y: defaults.MEH_CenterY,
+            //    innerHTML: html,
+            //    className: 'content-cut a',
+            //    click: function () {
+            //        ShowDetail(data);
+            //    }
+            //});
 
+            EMap.ShowBuildingPop({ ID: defaults.MOI_ID, Name: defaults.MOI_LabelName, Cx: defaults.MEH_CenterX, Cy: defaults.MEH_CenterY });
             EMap.MoveTo(defaults.MEH_CenterX, defaults.MEH_CenterY);
         };
 
