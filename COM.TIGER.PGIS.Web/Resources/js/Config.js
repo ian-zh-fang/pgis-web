@@ -101,13 +101,13 @@ var states = Ext.create('Ext.data.SimpleStore', {
     fields: ['v', 'd'],
     data: [[0, '否'], [1, '是']]
 });
-states.load();
+//states.load();
 
 var checkBoxItems = Ext.create('Ext.data.SimpleStore', {
     fields: ['v', 'd'],
     data: [[0, '禁用'], [1, '启用']]
 });
-checkBoxItems.load();
+//checkBoxItems.load();
 
 var genderItems = new Ext.data.SimpleStore({
     fields: ['v', 'd'],

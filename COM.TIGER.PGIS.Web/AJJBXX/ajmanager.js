@@ -25,6 +25,9 @@ var $ajmanager = $ajmanager || {};
     };
 
     $.form = qForm.getQueryForm(qForm.qFormType.AJJBXX, submit);
+    $.getForm = function () {
+        return qForm.getQueryForm(qForm.qFormType.AJJBXX, submit);
+    };
 
     function submit(form) {
         var c = Ext.getCmp(resultcontainerid);

@@ -438,7 +438,8 @@ function hotelStatisticsFn() {
 function caseFn() {
     
     loadJs(typeof $ajmanager, 'AJJBXX/ajmanager.js', function () {
-        showQueryForm($ajmanager.form);
+        //showQueryForm($ajmanager.form);
+        showQueryForm($ajmanager.getForm());
     });
 }
 
@@ -450,19 +451,19 @@ function gpsMangagerFn() {
 
 function gpsDisplayAtFn() {
     loadJs(typeof $gpsdisplay, 'GlobalPostionSystem/display.js', function () {
-        showQueryForm($gpsdisplay.track.form);
+        showQueryForm($gpsdisplay.track.getForm());
     });
 }
 
 function gpsLocationsFn() {
     loadJs(typeof $gpsdisplay, 'GlobalPostionSystem/display.js', function () {
-        showQueryForm($gpsdisplay.location.form);
+        showQueryForm($gpsdisplay.location.getForm());
     });
 }
 
 function gpsPanelQuery() {
     loadJs(typeof $gpsdisplay, 'GlobalPostionSystem/display.js', function () {
-        showQueryForm($gpsdisplay.kx.form);
+        showQueryForm($gpsdisplay.kx.getForm());
     });
 }
 

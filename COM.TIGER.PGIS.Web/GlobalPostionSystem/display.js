@@ -248,6 +248,53 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         }
         
     });
+    $.getForm = function () {
+        return qForm.getQueryForm(qForm.qFormType.gpsLocation, function (form, button) {
+            var items = form.items.items;
+            var params = {};
+            var cp = items[0];
+            params.TimeInterval = cp.value;
+
+            var tipstart = '开始获取实时分布数据';
+            var tipstop = '停止获取实时分布数据';
+
+            if ($.interval) {
+                clearInterval($.interval);
+                $.interval = 0;
+            }
+
+            if (button.text == tipstart) {
+                $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+                    req: 'currentpts',
+                    params: params,
+                    loaded: $gpsdisplay.DisplayDevice,
+                    model: $gpsdisplay.model.track,
+                    columns: $.columns
+                }));
+
+                $.interval = setInterval(function () {
+                    $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+                        req: 'currentpts',
+                        params: params,
+                        loaded: $gpsdisplay.DisplayDevice,
+                        model: $gpsdisplay.model.track,
+                        columns: $.columns
+                    }));
+                }, params.TimeInterval * 1000);
+
+                button.setText(tipstop);
+                cp.setDisabled(true);
+
+                errorState.show("GPS 单兵作战程序已经开始...");
+            } else {
+                cp.setDisabled(false);
+                button.setText(tipstart);
+
+                errorState.show("GPS 单兵作战程序已经停止...");
+            }
+
+        });
+    };
 
     return $.isInit = true;;
 
@@ -418,6 +465,26 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         }));
     });
 
+    $.getForm = function () {
+        return qForm.getQueryForm(qForm.qFormType.gpsTrack, function (form) {
+            var items = form.items.items;
+            var params = {};
+            for (var i = 0; i < items.length; i++) {
+                var cp = items[i];
+                params[cp.name] = cp.value;
+            }
+
+            $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+                req: 'historypts',
+                params: params,
+                loaded: $gpsdisplay.DisplayDevice,
+                getCoords: $.trakline,
+                model: $gpsdisplay.model.track,
+                columns: $.columns
+            }));
+        });
+    };
+
     return $.isInit = true;;
 
 })($gpsdisplay.track = $gpsdisplay.track || { isInit: false });
@@ -460,6 +527,29 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
             columns: $.columns
         }));
     });
+    $.getForm = function () {
+        return qForm.getQueryForm(qForm.qFormType.panelQuery, function (coords) {
+            //将2.5D地图坐标转换成GPS坐标
+
+            var point = null;
+            for (var i = 0; i < coords.length - 1; i += 2) {
+                point = EPoint2ELatLng({ X: coords[i], Y: coords[i + 1] });
+                coords[i] = point.Lat;
+                coords[i + 1] = point.Lng;
+            }
+            delete point;
+            delete i;
+
+            EMap.Clear();
+            $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+                req: 'qcoords',
+                params: { coords: coords },
+                loaded: $gpsdisplay.DisplayDevice,
+                model: $gpsdisplay.model.track,
+                columns: $.columns
+            }));
+        });
+    };
 
     $.Grid = function (options) { };
 
