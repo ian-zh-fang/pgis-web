@@ -143,7 +143,8 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
             loaded: Ext.emptyFn,
             getCoords:Ext.emptyFn,
             model: null,
-            columns: []
+            columns: [],
+            toolbar:null
         };
         Ext.apply(defaults, options);
 
@@ -175,7 +176,8 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         var grid = ExtHelper.CreateGridNoCheckbox({
             store: store,
             columns: defaults.columns,
-            pager: defaults.pager
+            pager: defaults.pager,
+            toolbar: defaults.toolbar
         });
         
         return grid;
@@ -305,6 +307,27 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
     if ($.isInit)
         return true;
 
+    var mCoords = [];
+    var mRecords = [];
+    var lineColor = "ff0000";
+    var isAnimate = false;
+    var completedAnimateCallback = function (coords, records) {
+        if (records.length > 0) {
+            EMap.Clear();
+            var dat = records[0].getData();
+
+            //绘制图线
+            EMap.DrawLine(Ext.util.Format.format("gpstrakline-{0}", dat.ID), { coords: coords, color: lineColor });
+
+            for (var i = 0; i < records.length; i++) {
+                dat = records[i].getData();
+                dat.ID = dat.ID + "_" + i;
+
+                $gpsdisplay.DisplayDevice(dat);
+            }
+        }
+    };
+
     $.columns = [
         { xtype: 'rownumberer', width: 25, sortable: false, hidden: false, renderer: function (a, b, c, d) { return d + 1; } },
         { dataIndex: 'CurrentTime', text: '经过时间', flex: 1, sortable: false, hidden: false },
@@ -363,63 +386,65 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         //绘制起始点
         drawTrackEntity(dat, startx, starty);
         var interval = setInterval(function () {
-            
-            lengthx = endx - startx;
-            lengthy = endy - starty;
+                       
+            if (isAnimate) {
+                lengthx = endx - startx;
+                lengthy = endy - starty;
 
-            //计算X轴方向
-            vectorx = lengthx >= 0;
-            vectory = lengthy >= 0;
-            //设定单位时间内X轴方向移动的距离
-            offsetx = speed;
-            offsety = Math.abs(lengthy) * offsetx / Math.abs(lengthx);
-            
-            if (offsetx < Math.abs(lengthx) && offsety < Math.abs(lengthy)) {
+                //计算X轴方向
+                vectorx = lengthx >= 0;
+                vectory = lengthy >= 0;
+                //设定单位时间内X轴方向移动的距离
+                offsetx = speed;
+                offsety = Math.abs(lengthy) * offsetx / Math.abs(lengthx);
 
-                if (vectorx) {
-                    nextx = startx + offsetx;
+                if (offsetx < Math.abs(lengthx) && offsety < Math.abs(lengthy)) {
+
+                    if (vectorx) {
+                        nextx = startx + offsetx;
+                    } else {
+                        nextx = startx - offsetx;
+                    }
+                    if (vectory) {
+                        nexty = starty + offsety;
+                    } else {
+                        nexty = starty - offsety;
+                    }
                 } else {
-                    nextx = startx - offsetx;
+                    nextx = endx;
+                    nexty = endy;
                 }
-                if (vectory) {
-                    nexty = starty + offsety;
-                } else {
-                    nexty = starty - offsety;
+
+                buffer.push(nextx);
+                buffer.push(nexty);
+                //绘制图线
+                EMap.DrawLine(
+                    Ext.util.Format.format("gpstrakline-{0}", dat.ID),
+                    {
+                        coords: buffer,
+                        color: lineColor
+                    });
+                //实体发生移动
+                drawTrackEntity(dat, nextx, nexty);
+                //从新设定起始点
+                startx = nextx;
+                starty = nexty;
+
+                //校验当前节点尚未执行完成
+                if (startx != endx)
+                    return 0;
+                //校验当前节点尚未执行完成
+                if (starty != endy)
+                    return 0;
+
+                //校验是否存在下一个节点
+                if (startx == endx && starty == endy && coords.length != 0 && 0 < coords.length / 2) {
+
+                    endx = coords.pop();
+                    endy = coords.pop();
+
+                    return 0;
                 }
-            } else {
-                nextx = endx;
-                nexty = endy;
-            }
-
-            buffer.push(nextx);
-            buffer.push(nexty);
-            //绘制图线
-            EMap.DrawLine(
-                Ext.util.Format.format("gpstrakline-{0}", dat.ID),
-                {
-                    coords: buffer,
-                    color: 'ff0000'
-                });
-            //实体发生移动
-            drawTrackEntity(dat, nextx, nexty);
-            //从新设定起始点
-            startx = nextx;
-            starty = nexty;
-
-            //校验当前节点尚未执行完成
-            if (startx != endx)
-                return 0;
-            //校验当前节点尚未执行完成
-            if (starty != endy)
-                return 0;
-
-            //校验是否存在下一个节点
-            if (startx == endx && starty == endy && coords.length != 0 && 0 < coords.length / 2) {
-                
-                endx = coords.pop();
-                endy = coords.pop();
-
-                return 0;
             }
 
             //此处清理内存
@@ -442,28 +467,12 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
             delete vectorx;
             delete vectory;
 
+            isAnimate = false;
+            completedAnimateCallback(mCoords, mRecords);
             return 0;
 
         }, 100);
     };
-
-    $.form = qForm.getQueryForm(qForm.qFormType.gpsTrack, function (form) {
-        var items = form.items.items;
-        var params = {};
-        for (var i = 0; i < items.length; i++) {
-            var cp = items[i];
-            params[cp.name] = cp.value;
-        }
-
-        $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
-            req: 'historypts',
-            params: params,
-            loaded: $gpsdisplay.DisplayDevice,
-            getCoords:$.trakline,
-            model: $gpsdisplay.model.track,
-            columns: $.columns
-        }));
-    });
 
     $.getForm = function () {
         return qForm.getQueryForm(qForm.qFormType.gpsTrack, function (form) {
@@ -477,13 +486,48 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
             $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
                 req: 'historypts',
                 params: params,
-                loaded: $gpsdisplay.DisplayDevice,
-                getCoords: $.trakline,
+                //loaded: $gpsdisplay.DisplayDevice,
+                toolbar: {
+                    enable: true,
+                    items: [{
+                        xtype: 'button',
+                        text: '开始动画',
+                        iconCls: 'animate_play',
+                        handler: function () {
+                            if (isAnimate) {
+                                errorState.show("正在执行，请稍等 ...");
+                                return 0;
+                            }
+
+                            EMap.Clear();
+                            isAnimate = true;
+                            $.trakline(mCoords, mRecords);
+                        }
+                    }, {
+                        xtype: 'button',
+                        text: '停止动画',
+                        iconCls: 'animate_stop',
+                        handler: function () {
+                            if (!isAnimate) {
+                                errorState.show("请先开始动画!");
+                            }
+                            isAnimate = false;
+                            return 0;
+                        }
+                    }]
+                },
+                getCoords: function (coords, records) {
+                    mCoords = coords;
+                    mRecords = records;
+                    completedAnimateCallback(coords, records);
+                },
                 model: $gpsdisplay.model.track,
                 columns: $.columns
             }));
         });
     };
+
+    $.form = $.getForm();
 
     return $.isInit = true;;
 

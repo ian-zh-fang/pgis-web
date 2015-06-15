@@ -279,13 +279,17 @@
     <Content Include="Resources\images\mark\zagt.png" />
     <Content Include="Resources\images\mark\zfjg.gif" />
     <Content Include="Resources\images\mark\zfjg.png" />
+    <Content Include="Resources\images\media_controls_dark_stop.png" />
+    <Content Include="Resources\images\media_controls_light_play.png" />
     <Content Include="Resources\images\pin.png" />
+    <Content Include="Resources\images\play_alt.png" />
     <Content Include="Resources\images\police.png" />
     <Content Include="Resources\images\policehead.png" />
     <Content Include="Resources\images\policeman.png" />
     <Content Include="Resources\images\poly.png" />
     <Content Include="Resources\images\portrait.png" />
     <Content Include="Resources\images\rect.png" />
+    <Content Include="Resources\images\stop-2.png" />
     <Content Include="Resources\images\target.png" />
     <Content Include="Resources\js\BelongTo.js" />
     <Content Include="Resources\js\ExtjsExtention.js" />

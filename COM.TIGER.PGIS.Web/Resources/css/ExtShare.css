@@ -162,6 +162,14 @@
     background-image:url(../images/location.png) !important;
 }
 
+.animate_play {
+    background-image:url(../images/media_controls_light_play.png) !important;
+}
+
+.animate_stop {
+    background-image:url(../images/media_controls_dark_stop.png) !important;
+}
+
 .formbutton{
     position:absolute;
     right: 10px;
