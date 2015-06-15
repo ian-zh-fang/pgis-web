@@ -187,8 +187,15 @@ var EMap = {
         var defaults = { ID: null, Name: null, Cx:0, Cy:0 };
         Ext.apply(defaults, spot);
 
-        //var content = "<div style='margin-top:20px'>名称：<span class='a' title='点击查看详细信息' >" + defaults.Name + "</span></div>";
-        //vM.InfoWindow.Open(content, defaults.Cx, defaults.Cy);
+        var content = "<div style='margin-top:20px'>名称：<span class='a' title='点击查看详细信息' onclick=\"parent.EMap.DisplayBuildingDetail('"+Object.$EncodeObj(defaults)+"')\" >" + defaults.Name + "</span></div>";
+        vM.InfoWindow.Open(content, defaults.Cx, defaults.Cy);
+        
+    },
+    DisplayBuildingDetail: function (v) {
+        v = Object.$DecodeObj(v);
+        var defaults = { ID: null, Name: null, Cx: 0, Cy: 0 };
+        Ext.apply(defaults, v);
+
         var mask = maskGenerate.start({msg:'正在获取数据，请稍等 ...'});
         Object.$Get({
             url: 'Buildings/BuildingHelp.ashx?req=getbd',
