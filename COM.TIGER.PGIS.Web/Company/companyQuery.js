@@ -118,10 +118,12 @@ var $companyquery = $companyquery || {};
         { xtype: 'rownumberer', width: 25, sortable: false, hidden: false, renderer: function (a, b, c, d) { return d + 1; } },
         { dataIndex: 'Name', itemId: 'Name', text: '名称', sortable: false, hidden: false, flex: 1 },
         {
-            dataIndex: 'ID', text: '', sortable: false, hidden: false, width: 45, renderer: function (a, b, c, d, e, f, g) {
+            dataIndex: 'ID', text: '', sortable: false, hidden: false, width: 70, renderer: function (a, b, c, d, e, f, g) {
                 var data = c.getData();
                 var val = Object.$EncodeObj(data);
-                return String.Format('<span class="a" onclick="{0}(\'{1}\', this)">详细...</span>', '$companyquery.grid.Detail', val);
+                var html = String.Format('<span class="a" onclick="{0}(\'{1}\', this)">详细</span>&nbsp;&nbsp;&nbsp;', '$companyquery.grid.Detail', val);
+                html += String.Format('<span class="a" onclick="{0}(\'{1}\', this)">定位</span>', '$companyquery.grid.location', val);
+                return html;
             }
         }
     ];
@@ -142,7 +144,32 @@ var $companyquery = $companyquery || {};
             $companydetail.detail.Show(data);
             mask.stop();
         });
-    }
+    };
 
+    $.location = function (val) {
+        var defaults = {
+            Addr: null, Name: null,
+            Address: {
+                OwnerInfo: { MEH_CenterX: 0, MEH_CenterY: 0, MOI_OwnerName: '', MOI_OwnerAddress: '', MOI_ID: 0 }
+            }
+        };
+        var data = Object.$DecodeObj(val);
+        Ext.apply(defaults, data);
+        if (defaults.Address && defaults.Address.OwnerInfo) {
+            var html = '<br />';
+            html += '<table border="0"><tr style="font-weight:700; font-size:11px;">';
+            html += '<td style="color:#15498b; ">名称：</td><td><span class="a">' + defaults.Name + '</span></td>';
+            html += '</tr><tr><td colspan="2"><hr /></td>';
+            html += '</tr><tr style="font-size:13px; color:gray;">';
+            html += '<td style="font-weight:700; font-size:11px; color:#15498b;">地址：</td><td>' + defaults.Addr + '</td>';
+            html += '</tr></table>';
+
+            EMap.OpenInfoWindow({ html: html, x: defaults.Address.OwnerInfo.MEH_CenterX, y: defaults.Address.OwnerInfo.MEH_CenterY });
+
+            EMap.MoveTo(defaults.MEH_CenterX, defaults.MEH_CenterY);
+        } else {
+            errorState.show("定位失败，数据不存在。");
+        }
+    };
 
 })(Object.$Supper($companyquery, 'grid'));

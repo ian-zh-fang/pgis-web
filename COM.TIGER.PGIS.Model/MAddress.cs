@@ -110,7 +110,7 @@ namespace COM.TIGER.PGIS.Model
         /// 楼房
         /// </summary>
         [System.Runtime.Serialization.DataMember(Name = "OwnerInfo")]
-        public MOwnerInfo OwnerInfo { get; set; }
+        public MOwnerInfoEx OwnerInfo { get; set; }
 
         /// <summary>
         /// 街道
