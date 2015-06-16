@@ -699,13 +699,13 @@ var buildingQuery = buildingQuery || {};
         ];
 
         me.Grid = function (options) {
-            var defaults = { req: 'poponbd', ids: null, pager: true, height: 200, enable: true };
+            var defaults = { req: 'poponbd', ids: null, columns: columns, pager: true, height: 200, enable: true };
             Ext.apply(defaults, options);
 
             var store = $.store.Store({ ids: defaults.ids, total: defaults.pager, req: defaults.req });
 
             var grid = ExtHelper.CreateGridNoCheckbox({
-                height: defaults.height, columns: columns, store: store, pager: defaults.pager
+                height: defaults.height, columns: defaults.columns, store: store, pager: defaults.pager
             });
             return grid;
         };

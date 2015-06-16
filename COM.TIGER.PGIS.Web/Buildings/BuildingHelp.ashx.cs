@@ -138,6 +138,10 @@ namespace COM.TIGER.PGIS.Web.Buildings
                     //@ 获取指定大楼的人员信息
                     GetPopulationsOnBuilding();
                     break;
+                case "poponbdt":
+                    //@ 获取指定大楼的指定居住类型人员信息
+                    GetPopulationsOnBuildingByType();
+                    break;
                 case "comonbd":
                     //获取指定大楼的单位信息
                     GetCompneysOnBuilding();
@@ -216,6 +220,14 @@ namespace COM.TIGER.PGIS.Web.Buildings
                 default:
                     break;
             }
+        }
+
+        private void GetPopulationsOnBuildingByType()
+        {
+            var id = HttpContext.Current.Request["ids"];
+            string livetypeid = HttpContext.Current.Request["tid"];
+            var data = _instance.GetPopulationsOnBuilding(id, livetypeid, CurrentPage, PagerSize);
+            ExecuteSerialzor(data);
         }
 
         private void GetBuilding()

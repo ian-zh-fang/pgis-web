@@ -77,6 +77,8 @@ namespace COM.TIGER.PGIS.IFun
 
         Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetPopulationsOnBuilding(string id, int index, int size);
 
+        Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetPopulationsOnBuilding(string id, string livetypeid, int index, int size);
+
         Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetPopulationsOnUnit(string id, int index, int size);
 
         List<Model.MPopulationBasicInfoEx> GetPopulationsOnRoom(string id);

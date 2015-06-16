@@ -245,6 +245,17 @@ namespace COM.TIGER.PGIS.Dal
                 string.Format("index={0}", index),
                 string.Format("size={0}", size)).Result;
         }
+        public Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetPopulationsOnBuilding(string id, string livetypeid, int index, int size)
+        {
+            int tid = 0;
+            int.TryParse(livetypeid, out tid);
+
+            return Post<Model.TotalClass<List<Model.MPopulationBasicInfoEx>>>("GetPopulationsOnBuilding", CONTROLNAME,
+                string.Format("id={0}", id),
+                string.Format("livetypeid={0}", tid),
+                string.Format("index={0}", index),
+                string.Format("size={0}", size)).Result;
+        }
 
         public Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetPopulationsOnUnit(string id, int index, int size)
         {

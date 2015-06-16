@@ -225,6 +225,11 @@ namespace COM.TIGER.PGIS.AddIn.Building
             return _instance.GetPopulationsOnBuilding(id, index, size);
         }
 
+        public Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetPopulationsOnBuilding(string id, string livetypeid, int index, int size)
+        {
+            return _instance.GetPopulationsOnBuilding(id, livetypeid, index, size);
+        }
+
         public Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetPopulationsOnUnit(string id, int index, int size)
         {
             return _instance.GetPopulationsOnUnit(id, index, size);
