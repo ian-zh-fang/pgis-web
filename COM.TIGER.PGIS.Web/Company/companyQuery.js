@@ -158,15 +158,13 @@ var $companyquery = $companyquery || {};
         if (defaults.Address && defaults.Address.OwnerInfo) {
             var html = '<br />';
             html += '<table border="0"><tr style="font-weight:700; font-size:11px;">';
-            html += '<td style="color:#15498b; ">名称：</td><td><span class="a">' + defaults.Name + '</span></td>';
+            html += '<td style="color:#15498b; ">名称：</td><td><span class="a" onclick="parent.$companyquery.grid.Detail(\'' + val + '\')">' + defaults.Name + '</span></td>';
             html += '</tr><tr><td colspan="2"><hr /></td>';
             html += '</tr><tr style="font-size:13px; color:gray;">';
             html += '<td style="font-weight:700; font-size:11px; color:#15498b;">地址：</td><td>' + defaults.Addr + '</td>';
             html += '</tr></table>';
 
             EMap.OpenInfoWindow({ html: html, x: defaults.Address.OwnerInfo.MEH_CenterX, y: defaults.Address.OwnerInfo.MEH_CenterY });
-
-            EMap.MoveTo(defaults.MEH_CenterX, defaults.MEH_CenterY);
         } else {
             errorState.show("定位失败，数据不存在。");
         }
