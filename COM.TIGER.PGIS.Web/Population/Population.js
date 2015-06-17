@@ -31,7 +31,7 @@ var populationQuery = populationQuery || {};
         var params = {};
         for (var i = 0; i < items.length; i++) {
             var cp = items[i];
-            params[cp.name] = cp.rawValue;
+            params[cp.name] = cp.getValue();
         }
         c.add($.grid.Grid({ req: req, params: params }));
 
@@ -514,7 +514,7 @@ var populationQuery = populationQuery || {};
     function getAbroad(data) {
 
         var panel = new Ext.panel.Panel({
-            border: 0, layout: 'fit', items: [$.parent.Abroad.grid.Grid({ id: data.ID })]
+            border: 0, layout: 'fit', items: [$.parent.Abroad.grid.Grid({ id: data.CardNo })]
         });
         return panel;
     };
@@ -702,15 +702,18 @@ var populationQuery = populationQuery || {};
                 { name: 'Country' },
                 { name: 'CardTypeName' },
                 { name: 'CardNo' },
-                { name: 'ValidityDate' },
+                { name: 'ValidityDate', type:'string' },
                 { name: 'VisaTypeName' },
                 { name: 'VisaNoAndValidity' },
-                { name: 'StayValidityDate' },
+                { name: 'StayValidityDate', type: 'string' },
                 { name: 'EntryPort' },
-                { name: 'EntryDate' },
-                { name: 'ArrivalDate' },
-                { name: 'LiveDate' },
-                { name: 'LeaveDate' },
+                { name: 'EntryDate', type: 'string' },
+                { name: 'ArrivalDate', type: 'string' },
+                { name: 'LiveDate', type: 'string' },
+                {
+                    name: 'LeaveDate',
+                    type: 'string'
+                },
                 { name: 'StayReason' },
                 { name: 'ReceivePerson' },
                 { name: 'Phone' }
@@ -744,16 +747,26 @@ var populationQuery = populationQuery || {};
             { dataIndex: 'Country', text: '国籍', width: 100, sortable: false, hidden: true },
             { dataIndex: 'CardTypeName', text: '证件类型', width: 100, sortable: false, hidden: true },
             { dataIndex: 'CardNo', text: '证件编号', width: 100, sortable: false, hidden: true },
-            { dataIndex: 'ValidityDate', text: '证件有效期至', width: 100, sortable: false, hidden: true },
+            {
+                dataIndex: 'ValidityDate', text: '证件有效期至', width: 100, sortable: false, hidden: true, renderer: parseString
+            },
             { dataIndex: 'VisaTypeName', text: '签证类型', width: 100, sortable: false, hidden: true },
             { dataIndex: 'VisaNoAndValidity', text: '签证号码及期限', width: 100, sortable: false, hidden: true },
             { dataIndex: 'EntryPort', text: '入境口岸', flex: 1, sortable: false, hidden: false },
-            { dataIndex: 'EntryDate', text: '入境时间', width: 100, sortable: false, hidden: false },
-            { dataIndex: 'LeaveDate', text: '离境时间', width: 100, sortable: false, hidden: false },
-            { dataIndex: 'LiveDate', text: '拟往日期', width: 100, sortable: false, hidden: true },
-            { dataIndex: 'ArrivalDate', text: '抵达日期', width: 100, sortable: false, hidden: true },
+            {
+                dataIndex: 'EntryDate', text: '入境时间', width: 100, sortable: false, hidden: false, renderer: parseString
+            },
+            {
+                dataIndex: 'LeaveDate', text: '离境时间', width: 100, sortable: false, hidden: false, renderer: parseString
+            },
+            { dataIndex: 'LiveDate', text: '拟往日期', width: 100, sortable: false, hidden: true, renderer: parseString },
+            {
+                dataIndex: 'ArrivalDate', text: '抵达日期', width: 100, sortable: false, hidden: true, renderer: parseString
+            },
             { dataIndex: 'StayReason', text: '停留事由', flex: 1, sortable: false, hidden: true },
-            { dataIndex: 'StayValidityDate', text: '停留有效期至', width: 100, sortable: false, hidden: true },
+            {
+                dataIndex: 'StayValidityDate', text: '停留有效期至', width: 100, sortable: false, hidden: true, renderer: parseString
+            },
             { dataIndex: 'ReceivePerson', text: '接待单位/人', width: 100, sortable: false, hidden: true },
             { dataIndex: 'Phone', text: '单位/人电话', width: 100, sortable: false, hidden: true }
         ];
@@ -766,6 +779,11 @@ var populationQuery = populationQuery || {};
         };
 
     })($.grid = $.grid || {});
+
+    function parseString(date) {
+        var val = Date.formatDate(date);
+        return (val == '1-01-01') ? '' : val;
+    }
 
 })(populationQuery.population.Abroad = populationQuery.population.Abroad || { parent: populationQuery.population });
 

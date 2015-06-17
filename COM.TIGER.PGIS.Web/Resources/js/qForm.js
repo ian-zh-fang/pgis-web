@@ -839,12 +839,12 @@ var qForm = function () {
                     allowBlank: true
                 }, {
                     xtype: 'textfield',
-                    fieldLabel: '英文姓名',
+                    fieldLabel: '英文名',
                     name: 'FName',
                     allowBlank: true
                 }, {
                     xtype: 'textfield',
-                    fieldLabel: '英文姓名',
+                    fieldLabel: '英文姓',
                     name: 'LName',
                     allowBlank: true
                 }, {

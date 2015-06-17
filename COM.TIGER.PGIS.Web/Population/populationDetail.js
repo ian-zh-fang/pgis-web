@@ -551,6 +551,7 @@ var $populationdetail = $populationdetail || {};
             var defaults = { storeId: identityManager.createId(), model: $.model.Type, req: null, total: false, pageSize: 25 };
             Ext.apply(defaults, options);
             defaults.url = String.Format('{0}{1}', $.parent.basic_url, defaults.req);
+            errorState.show(defaults.url);
 
             return ExtHelper.CreateStore(defaults);
         };

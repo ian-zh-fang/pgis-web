@@ -17,7 +17,8 @@ namespace COM.TIGER.PGIS.Web.Population
         public new void ProcessRequest(HttpContext context)
         {
             InitContainer(context);
-            switch (context.Request["req"])
+            string req = context.Request["req"];
+            switch (req)
             {
                 case "pg":
                     PagePopulation();

@@ -277,16 +277,17 @@ namespace COM.TIGER.PGIS.Dal
 
         public List<Model.MTemporaryPopulation> GetTemporaryRecords(string id)
         {
-            return new List<MTemporaryPopulation>();
+            return Post<List<Model.MTemporaryPopulation>>("GetMoveRecords", "Population", string.Format("id={0}", id)).Result;
         }
 
         public List<Model.MAbroadPerson> GetAbroadRecords(string id)
         {
-            return new List<MAbroadPerson>();
+            return Post<List<Model.MAbroadPerson>>("GetAbroadRecords", "Population", string.Format("cardNo={0}", id)).Result;
         }
 
         public List<Model.MCompanyEmployee> GetCompanyRecords(string number)
         {
+            //throw new NotImplementedException();
             return new List<MCompanyEmployee>();
         }
 
