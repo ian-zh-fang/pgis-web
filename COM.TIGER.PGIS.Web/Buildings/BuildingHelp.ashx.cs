@@ -217,9 +217,23 @@ namespace COM.TIGER.PGIS.Web.Buildings
                 case "getbd":
                     GetBuilding();
                     break;
+                case "qbdaddr":
+                    //@ 查询匹配地址
+                    QueryBuildingAddress();
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void QueryBuildingAddress()
+        {
+            string patternStr = Request["query"];
+            var data = _instance.QueryBuildingAddress(patternStr);
+            List<BuildingAddressModel> list = new List<BuildingAddressModel>();
+            data.ForEach(t => list.Add(new BuildingAddressModel() { Content = t }));
+
+            ExecuteSerialzor(list);
         }
 
         private void GetPopulationsOnBuildingByType()
@@ -651,5 +665,10 @@ namespace COM.TIGER.PGIS.Web.Buildings
                 return false;
             }
         }
+    }
+
+    public sealed class BuildingAddressModel
+    {
+        public string Content { get; set; }
     }
 }

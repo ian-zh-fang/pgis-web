@@ -239,15 +239,53 @@ var qForm = function () {
         }
 
         function buildingQuery(callback) {
+
+            Ext.define("bdaddrQueryModel", {
+                extend: 'Ext.data.Model',
+                fields: [
+                    { name: 'Content' }
+                ]
+            });
+
+            var ds = Ext.create('Ext.data.Store', {
+                model: 'bdaddrQueryModel',
+                proxy: {
+                    type: 'ajax',
+                    url: 'Buildings/BuildingHelp.ashx?req=qbdaddr',
+                    reader: {
+                        type: 'json',
+                        root: 'result'
+                    },
+                    simpleSortMode: true
+                },
+            });
+
             var c = queryForm({
                 items: [{
                     xtype: 'textfield',
                     fieldLabel: '大楼名称',
                     name: 'Name',
                     allowBlank: true
-                },
-                getAutoComplete({ text: '详细地址', name: 'Addr' })
-                ],
+                }, {
+                    xtype: 'combo',
+                    store: ds,
+                    name: 'Addr',
+                    fieldLabel: '详细地址',
+                    displayField: 'Content',
+                    typeAhead: false,
+                    hideLabel: false,
+                    hideTrigger: true,
+                    minChars:2,
+                    listConfig: {
+                        loadingText: 'Searching...',
+                        emptyText: '没有匹配项',
+                        getInnerTpl: function () {
+                            return '<div class="search-item" style="height:26px; line-height:26px;">' +
+                                '{Content}' +
+                            '</div>';
+                        }
+                    }
+                }],
                 callback: function () {
                     var me = this;
                     callback(c, me);

@@ -304,5 +304,10 @@ namespace COM.TIGER.PGIS.AddIn.Building
         {
             return _instance.GetBuilding(ids);
         }
+        
+        public List<string> QueryBuildingAddress(string patternStr)
+        {
+            return _instance.QueryBuildingAddress(patternStr);
+        }
     }
 }

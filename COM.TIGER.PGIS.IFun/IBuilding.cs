@@ -128,5 +128,7 @@ namespace COM.TIGER.PGIS.IFun
         int CompanyAdd(string addr, string ids);
 
         int PopuAdd(string addr, string ids);
+
+        List<string> QueryBuildingAddress(string patternStr);
     }
 }

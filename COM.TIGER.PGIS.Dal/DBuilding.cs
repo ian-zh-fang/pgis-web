@@ -370,5 +370,10 @@ namespace COM.TIGER.PGIS.Dal
                 string.Format("addr={0}", addr),
                 string.Format("ids={0}", ids)).Result;
         }
+
+        public List<string> QueryBuildingAddress(string patternStr)
+        {
+            return Post<List<string>>("QueryBuildingAddress", "Building", string.Format("patternStr={0}", patternStr)).Result;
+        }
     }
 }
