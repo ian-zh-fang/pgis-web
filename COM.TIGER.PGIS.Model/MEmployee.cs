@@ -262,6 +262,11 @@ namespace COM.TIGER.PGIS.Model
         public string CompanyName
         {
             get { return Company == null ? null : Company.Name; }
+            private set
+            {
+                if (Company != null)
+                    Company.Name = value;
+            }
         }
     }
 }

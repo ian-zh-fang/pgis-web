@@ -594,7 +594,9 @@ var populationQuery = populationQuery || {};
                 { name: 'JobTypeID' },
                 { name: 'JobTypeName' },
                 { name: 'CompanyName' },
-                { name: 'Company' }
+                { name: 'Company' },
+                { name: 'EntryTime' },
+                { name: 'QuitTime' }
             ]
         });
 
@@ -617,9 +619,9 @@ var populationQuery = populationQuery || {};
         var columns = [
             { xtype: 'rownumberer', width: 25, renderer: function (a, b, c, d) { return d + 1; } },
             { dataIndex: 'CompanyName', text: '单位名称', flex: 1, sortable: false, hidden: false },
-            { dataIndex: 'EntryTime', text: '入职时间', width: 80, sortable: false, hidden: false },
-            { dataIndex: 'QuitTime', text: '离职时间', width: 80, sortable: false, hidden: false },
-            { dataIndex: 'OrganID', text: '操作', width: 40, sortable: false, hidden: false }
+            { dataIndex: 'EntryTime', text: '入职时间', width: 120, sortable: false, hidden: false, renderer: parseString },
+            { dataIndex: 'QuitTime', text: '离职时间', width: 120, sortable: false, hidden: false, renderer: parseString }//,
+            //{ dataIndex: 'OrganID', text: '操作', width: 40, sortable: false, hidden: false }
         ];
 
         var Grid = me.Grid = function (options) {
@@ -778,12 +780,7 @@ var populationQuery = populationQuery || {};
             return ExtHelper.CreateGridNoCheckbox({ store: store, columns: columns, pager: defaults.pager });
         };
 
-    })($.grid = $.grid || {});
-
-    function parseString(date) {
-        var val = Date.formatDate(date);
-        return (val == '1-01-01') ? '' : val;
-    }
+    })($.grid = $.grid || {});    
 
 })(populationQuery.population.Abroad = populationQuery.population.Abroad || { parent: populationQuery.population });
 
@@ -811,3 +808,8 @@ var populationQuery = populationQuery || {};
     }
 
 })(populationQuery.kx);
+
+function parseString(date) {
+    var val = Date.formatDate(date);
+    return (val == '1-01-01') ? '' : val;
+}

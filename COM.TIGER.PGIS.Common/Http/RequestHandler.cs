@@ -72,6 +72,7 @@ namespace COM.TIGER.PGIS.Common.Http
             var request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
             request.Method = GetMethod(method);
             //request.ContentType = "text/json";
+            request.Timeout = 30000;
             request.ContentType = "application/x-www-form-urlencoded";
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)";
             request.ContentLength = 0;

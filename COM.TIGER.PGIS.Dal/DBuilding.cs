@@ -287,8 +287,7 @@ namespace COM.TIGER.PGIS.Dal
 
         public List<Model.MCompanyEmployee> GetCompanyRecords(string number)
         {
-            //throw new NotImplementedException();
-            return new List<MCompanyEmployee>();
+            return Post<List<Model.MCompanyEmployee>>("QueryEmployees", "Employee", string.Format("cardNo={0}", number)).Result;
         }
 
         public List<Model.MRooms> GetRoomsOnBuilding(string id)
