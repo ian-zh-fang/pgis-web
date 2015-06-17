@@ -498,7 +498,17 @@ var $populationdetail = $populationdetail || {};
         var columns = [
             { xtype: 'rownumberer', width: 25, renderer: function (a, b, c, d) { return d + 1; } },
             { dataIndex: 'Addr', text: '详细地址', flex: 1, sortable: false, hidden: false },
-            { dataIndex: 'TP_Date', text: '来本址日期', width: 100, sortable: false, hidden: false }
+            {
+                dataIndex: 'TP_Date', text: '来本址日期', width: 100, sortable: false, hidden: false, renderer: function (a, b, c) {
+                    try{
+                        var val = Date.formatDate(date);
+                        return (val == '1-01-01') ? '' : val;
+                    }
+                    catch (e) {
+                        return '';
+                    }
+                }
+            }
         ];
 
         var Grid = me.Grid = function (options) {
@@ -551,7 +561,7 @@ var $populationdetail = $populationdetail || {};
             var defaults = { storeId: identityManager.createId(), model: $.model.Type, req: null, total: false, pageSize: 25 };
             Ext.apply(defaults, options);
             defaults.url = String.Format('{0}{1}', $.parent.basic_url, defaults.req);
-            errorState.show(defaults.url);
+            //errorState.show(defaults.url);
 
             return ExtHelper.CreateStore(defaults);
         };

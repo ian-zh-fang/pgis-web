@@ -101,7 +101,12 @@ var $ajmanager = $ajmanager || {};
 
     var columns = $.columns = [
         { xtype: 'rownumberer', width: 25, sortable: false, hidden: false, renderer: function (a, b, c, d) { return d + 1; } },
-        { dataIndex: 'Xm', text: '涉案人员姓名', flex: 1 },
+        { dataIndex: 'Xm', text: '姓名', flex: 1 },
+        {
+            dataIndex: 'Ajbh', text: '案件编号', flex: 1, renderer: function (a, b, c) {
+                return a || '暂无';
+            }
+        },
         {
             dataIndex: 'ID', width: 45, sortable: false, hidden: false, renderer: function (a, b, c) {
                 var data = c.getData();

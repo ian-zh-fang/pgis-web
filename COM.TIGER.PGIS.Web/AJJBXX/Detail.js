@@ -146,15 +146,16 @@ var $ajdetail = $ajdetail || {};
                 return a > 0 ? '<span style="color:red; font-weight:700;">是</span>' : '<span style="color:darkblue; font-weight:700;">否</span>';
             }
         },
-        { dataIndex: 'CurrentAddr', text: '住址', flex: 1, sortable: false, hidden: false, renderer: function (a) { return String.Format('<span title="{0}">{0}</span>', a); } },
-        {
-            dataIndex: 'ID', width: 45, sortable: false, hidden: false, renderer: function (a, b, c) {
-                var data = c.getData();
-                var val = Object.$EncodeObj(data);
+        { dataIndex: 'CurrentAddr', text: '住址', flex: 1, sortable: false, hidden: false, renderer: function (a) { return String.Format('<span title="{0}">{0}</span>', a); } }
+        //,
+        //{
+        //    dataIndex: 'ID', width: 45, sortable: false, hidden: false, renderer: function (a, b, c) {
+        //        var data = c.getData();
+        //        var val = Object.$EncodeObj(data);
 
-                return String.Format('<span class="a" title="点击 查看人员详细信息" onclick="{0}(\'{1}\')">详细</span>', '$ajdetail.grid.Detail', val);
-            }
-        }
+        //        return String.Format('<span class="a" title="点击 查看人员详细信息" onclick="{0}(\'{1}\')">详细</span>', '$ajdetail.grid.Detail', val);
+        //    }
+        //}
     ];
 
     $.Grid = function (options) {

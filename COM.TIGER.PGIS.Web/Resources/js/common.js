@@ -399,6 +399,8 @@ var ExtHelper = (function () {
             del = toolbar.del || null;
             var listeners = {};
             if (options.listeners && options.listeners instanceof Object) listeners = options.listeners;
+
+            
             extGrid = Ext.create('Ext.grid.Panel', {
                 store: store,
                 iconCls: iconCls,
@@ -413,7 +415,7 @@ var ExtHelper = (function () {
                 hideHeaders: options.hideHeaders,
                 features: options.features,
                 listeners: listeners,
-                loadMask:true
+                loadMask: true
                 //使用Paging Scroller分页插件  
                 //, verticalScroller: 'paginggridscroller' 
                 // do not reset the scrollbar when the view refreshs 
@@ -421,6 +423,12 @@ var ExtHelper = (function () {
                 // infinite scrolling does not support selection  
                 //disableSelection: true
             });
+
+            //var mask = maskGenerate.start({ p: extGrid.getId(), msg: 'loadding...' });
+            //store.on('load', function () {
+            //    mask.stop();
+            //});
+
             if (pager) {
                 extGrid.addDocked({
                     xtype: 'pagingtoolbar',
