@@ -533,7 +533,8 @@ var buildingQuery = buildingQuery || {};
 
         me.ShowDetail = function (v) {
             var data = $.supper.decodeObj(v);
-            Show(data);
+            //Show(data);
+            detail(data);
         };
 
         function Show(d) {
@@ -543,6 +544,19 @@ var buildingQuery = buildingQuery || {};
             var tab = init(defaults.Room_ID);
             var wind = ExtHelper.CreateWindow({ title: String.Format('房屋：{0}', defaults.RoomName), width: 600, height: 400, layout: 'fit' });
             wind.add(tab);
+        }
+
+        function detail(d) {
+            var defaults = me.defaults = { Room_ID: 0, RoomName: null, RoomName2: null, RoomArea: null, RoomUseID: 0, RoomUse: null, RoomAttributeID: 0, RoomAttribute: null, UnitID: 0, UnitName: null, OwnerInfoID: 0 };
+            Ext.apply(defaults, d);
+
+            var tab = ExtHelper.CreateTabPanelFn();
+            var wind = ExtHelper.CreateWindow({ title: String.Format('房屋：{0}', defaults.RoomName), width: 600, height: 400, layout: 'fit' });
+            wind.add(tab.tab);
+
+            tab.add({ component: $.supper.Population.grid.Grid({ req: 'pops', ids: defaults.Room_ID, pager: false }), closable: false, title: '人员信息' });
+            tab.add({ component: $.supper.Company.grid.Grid({ req: 'companys', ids: defaults.Room_ID }), closable: false, title: '单位信息' });
+            tab.tab.setActiveTab(0);
         }
 
         function init(id) {

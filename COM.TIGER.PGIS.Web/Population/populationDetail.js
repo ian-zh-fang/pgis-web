@@ -56,6 +56,22 @@ var $populationdetail = $populationdetail || {};
         wind.add(tab.tab);
     };
 
+    $.showDetail = function (options) {
+        var defaults = { title: '人员信息详细...', width: 600, height: 400 };
+        Ext.apply(defaults, options);
+
+        var tab = ExtHelper.CreateTabPanelFn();
+        var wind = ExtHelper.CreateWindow({ title: defaults.title, width: defaults.width, height: defaults.height, layout: 'fit' });
+        wind.add(tab.tab);
+
+        tab.add({ component: Form(options), title: '基本信息', closable: false });
+        tab.add({ component: getHRelation(options), title: '户籍信息', closable: false });
+        tab.add({ component: getCompanies(options), title: '从业经历', closable: false });
+        tab.add({ component: getMovetrack(options), title: '移动轨迹', closable: false });
+        tab.add({ component: getAbroad(options), title: '出入境信息', closable: false });
+        tab.tab.setActiveTab(0);
+    };
+
     var Form = $.Form = function (options) {
         var defaults = {
             ID: 0, Name: null, OtherName: null, SexID: 0, Sex: null, LiveTypeID: 0, LiveType: null, Nation: null,

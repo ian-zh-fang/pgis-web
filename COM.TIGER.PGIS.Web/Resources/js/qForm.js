@@ -278,7 +278,7 @@ var qForm = function () {
                     minChars:2,
                     listConfig: {
                         loadingText: 'Searching...',
-                        emptyText: '没有匹配项',
+                        emptyText: '<div style="height:26px; line-height:26px; padding-left:15px; font-weight:700; color:darkred; font-size:12px;">没有匹配项</div>',
                         getInnerTpl: function () {
                             return '<div class="search-item" style="height:26px; line-height:26px;">' +
                                 '{Content}' +

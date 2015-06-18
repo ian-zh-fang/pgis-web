@@ -209,8 +209,10 @@ var $room = $room || {};
                     var northpanel = panel.getComponent(northid);
                     northpanel.removeAll();
                     northpanel.add(grid.grid);
-
-                    nmask.stop();
+                    grid.grid.store.un('load');
+                    grid.grid.store.on('load', function () {
+                        nmask.stop();
+                    });
                     $room.company.rstores = grid.store;
                 });
 
@@ -221,8 +223,11 @@ var $room = $room || {};
                     centerpanel.removeAll();
                     centerpanel.add(grid.grid);
                     centerpanel.doLayout();
+                    grid.grid.store.un('load');
+                    grid.grid.store.on('load', function () {
+                        cmask.stop();
+                    });
 
-                    cmask.stop();
                     $room.popu.rstores = grid.store;
                 });
 
@@ -612,11 +617,13 @@ var $room = $room || {};
             var grid = $bcompany.grid.Grid(Ext.apply(options, {
                 callback: function () {
 
-                    if ($.bstores)
+                    if ($.bstores) {
                         $.bstores.load();
+                    }                        
 
-                    if ($.rstores)
+                    if ($.rstores) {
                         $.rstores.load();
+                    }
                 }
             }));
             c(grid);
@@ -639,11 +646,13 @@ var $room = $room || {};
             var grid = $bpop.grid.Grid(Ext.apply(options, {
                 callback: function () {
 
-                    if ($.bstores)
+                    if ($.bstores) {
                         $.bstores.load();
+                    }
 
-                    if ($.rstores)
+                    if ($.rstores) {
                         $.rstores.load();
+                    }
                 }
             }));
             c(grid);

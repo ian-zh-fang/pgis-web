@@ -505,7 +505,7 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
                         }
                     }, {
                         xtype: 'button',
-                        text: '停止动画',
+                        text: '结束动画',
                         iconCls: 'animate_stop',
                         handler: function () {
                             if (!isAnimate) {
