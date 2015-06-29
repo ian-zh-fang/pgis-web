@@ -149,10 +149,10 @@ var YJBJQuery = YJBJQuery || {};
                     return value || '未知';
                 }
             },
-            { dataIndex: 'TodayTickCount', text: '当天案件数', flex: 1 },
-            { dataIndex: 'ThisWeekTickCount', text: '本周案件数', flex: 1 },
-            { dataIndex: 'ThisMonthTickCount', text: '本月案件数', flex: 1 },
-            { dataIndex: 'ThisYearTickCount', text: '本年案件数', flex: 1 }
+            { dataIndex: 'TodayTickCount', text: '当天警情数', flex: 1 },
+            { dataIndex: 'ThisWeekTickCount', text: '本周警情数', flex: 1 },
+            { dataIndex: 'ThisMonthTickCount', text: '本月警情数', flex: 1 },
+            { dataIndex: 'ThisYearTickCount', text: '本年警情数', flex: 1 }
         ];
         return c;
     }();

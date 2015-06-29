@@ -183,6 +183,41 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         return grid;
     };
 
+    $.drawTrackEntity = function (dat, x, y) {
+        var defaults = {
+            ID: 0, DeviceID: null, OfficerNum: null, CurrentTime: null, Device: {
+                ID: 0, DeviceID: null, OfficerID: null, BindTime: null, CarID: 0, CarNum: '', DType: 0
+            }
+        };
+        Ext.apply(defaults, dat);
+
+        var imgname = "policeman.png";
+        if (defaults.Device && defaults.Device.DType == 2)
+            imgname = "police.png";
+
+        var html = String.Format('<div style="width:32px; text-align:center;"><img style="width:32px;height:32px;" src="{0}{1}"  title="{2}" ></img></div>', $gpsdisplay.imgpath, imgname, defaults.Device ? defaults.Device.OfficerID || defaults.Device.CarNum || defaults.Device.DeviceID : defaults.DeviceID);
+        EMap.AppendEntity(String.Format('trackmove-{0}', defaults.ID), { x: x, y: y, exX: 16, exY: 16 }, {
+            html: html, callback: $gpsdisplay.TrackPointClick, args: {
+                data: defaults
+            }
+        });
+    };
+
+    $.showDefaultGrid = function (options) {
+        var defaults = {
+            req: 'currentpts',
+            params: {},
+            loaded: function (dat) {
+                $gpsdisplay.drawTrackEntity(dat, dat.X, dat.Y);
+            },
+            model: $gpsdisplay.model.track,
+            columns: $gpsdisplay.location.columns
+        };
+        Ext.apply(defaults, options);
+
+        $gpsdisplay.ShowResultPanel($gpsdisplay.Grid(defaults));
+    };
+
     return true;
 
 })($gpsdisplay);
@@ -220,22 +255,24 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         }
         
         if (button.text == tipstart) {
-            $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
-                req: 'currentpts',
-                params: params,
-                loaded: $gpsdisplay.DisplayDevice,
-                model: $gpsdisplay.model.track,
-                columns: $.columns
-            }));
+            //$gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+            //    req: 'currentpts',
+            //    params: params,
+            //    loaded: $gpsdisplay.DisplayDevice,
+            //    model: $gpsdisplay.model.track,
+            //    columns: $.columns
+            //}));
+            $gpsdisplay.showDefaultGrid({ params: params, columns: $.columns });
             
             $.interval = setInterval(function () {
-                $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
-                    req: 'currentpts',
-                    params: params,
-                    loaded: $gpsdisplay.DisplayDevice,
-                    model: $gpsdisplay.model.track,
-                    columns: $.columns
-                }));
+                //$gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+                //    req: 'currentpts',
+                //    params: params,
+                //    loaded: $gpsdisplay.DisplayDevice,
+                //    model: $gpsdisplay.model.track,
+                //    columns: $.columns
+                //}));
+                $gpsdisplay.showDefaultGrid({ params: params, columns: $.columns });
             }, params.TimeInterval * 1000);
 
             button.setText(tipstop);
@@ -266,22 +303,24 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
             }
 
             if (button.text == tipstart) {
-                $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
-                    req: 'currentpts',
-                    params: params,
-                    loaded: $gpsdisplay.DisplayDevice,
-                    model: $gpsdisplay.model.track,
-                    columns: $.columns
-                }));
+                //$gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+                //    req: 'currentpts',
+                //    params: params,
+                //    loaded: $gpsdisplay.DisplayDevice,
+                //    model: $gpsdisplay.model.track,
+                //    columns: $.columns
+                //}));
+                $gpsdisplay.showDefaultGrid({ params: params, columns: $.columns });
 
                 $.interval = setInterval(function () {
-                    $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
-                        req: 'currentpts',
-                        params: params,
-                        loaded: $gpsdisplay.DisplayDevice,
-                        model: $gpsdisplay.model.track,
-                        columns: $.columns
-                    }));
+                    //$gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+                    //    req: 'currentpts',
+                    //    params: params,
+                    //    loaded: $gpsdisplay.DisplayDevice,
+                    //    model: $gpsdisplay.model.track,
+                    //    columns: $.columns
+                    //}));
+                    $gpsdisplay.showDefaultGrid({ params: params, columns: $.columns });
                 }, params.TimeInterval * 1000);
 
                 button.setText(tipstop);
@@ -296,7 +335,7 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
             }
 
         });
-    };
+    };   
 
     return $.isInit = true;;
 
@@ -343,25 +382,25 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
     //移动，并绘制轨迹
     $.trakline = function (coords, records) {
         //绘制移动实体
-        function drawTrackEntity(dat, x, y) {
-            var defaults = {
-                ID: 0, DeviceID: null, OfficerNum: null, CurrentTime: null, Device: {
-                    ID: 0, DeviceID: null, OfficerID: null, BindTime: null, CarID: 0, CarNum: '', DType: 0
-                }
-            };
-            Ext.apply(defaults, dat);
+        //function drawTrackEntity(dat, x, y) {
+        //    var defaults = {
+        //        ID: 0, DeviceID: null, OfficerNum: null, CurrentTime: null, Device: {
+        //            ID: 0, DeviceID: null, OfficerID: null, BindTime: null, CarID: 0, CarNum: '', DType: 0
+        //        }
+        //    };
+        //    Ext.apply(defaults, dat);
 
-            var imgname = "policeman.png";
-            if (defaults.Device && defaults.Device.DType == 2)
-                imgname = "police.png";
+        //    var imgname = "policeman.png";
+        //    if (defaults.Device && defaults.Device.DType == 2)
+        //        imgname = "police.png";
 
-            var html = String.Format('<div style="width:32px; text-align:center;"><img style="width:32px;height:32px;" src="{0}{1}"  title="{2}" ></img></div>', $gpsdisplay.imgpath, imgname, defaults.Device ? defaults.Device.OfficerID || defaults.Device.CarNum || defaults.Device.DeviceID : defaults.DeviceID);
-            EMap.AppendEntity(String.Format('trackmove-{0}', defaults.ID), { x: x, y: y, exX: 16, exY: 16 }, {
-                html: html, callback: $gpsdisplay.TrackPointClick, args: {
-                    data: defaults
-                }
-            });
-        };
+        //    var html = String.Format('<div style="width:32px; text-align:center;"><img style="width:32px;height:32px;" src="{0}{1}"  title="{2}" ></img></div>', $gpsdisplay.imgpath, imgname, defaults.Device ? defaults.Device.OfficerID || defaults.Device.CarNum || defaults.Device.DeviceID : defaults.DeviceID);
+        //    EMap.AppendEntity(String.Format('trackmove-{0}', defaults.ID), { x: x, y: y, exX: 16, exY: 16 }, {
+        //        html: html, callback: $gpsdisplay.TrackPointClick, args: {
+        //            data: defaults
+        //        }
+        //    });
+        //};
 
         coords = [].concat(coords).reverse();
         if (coords.length < 4)
@@ -384,7 +423,7 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         var buffer = [startx, starty];
 
         //绘制起始点
-        drawTrackEntity(dat, startx, starty);
+        $gpsdisplay.drawTrackEntity(dat, startx, starty);
         var interval = setInterval(function () {
                        
             if (isAnimate) {
@@ -425,7 +464,7 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
                         color: lineColor
                     });
                 //实体发生移动
-                drawTrackEntity(dat, nextx, nexty);
+                $gpsdisplay.drawTrackEntity(dat, nextx, nexty);
                 //从新设定起始点
                 startx = nextx;
                 starty = nexty;
@@ -563,13 +602,14 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
         delete i;
 
         EMap.Clear();
-        $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
-            req: 'qcoords',
-            params: { coords: coords },
-            loaded: $gpsdisplay.DisplayDevice,
-            model: $gpsdisplay.model.track,
-            columns: $.columns
-        }));
+        //$gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+        //    req: 'qcoords',
+        //    params: { coords: coords },
+        //    loaded: $gpsdisplay.DisplayDevice,
+        //    model: $gpsdisplay.model.track,
+        //    columns: $.columns
+        //}));
+        $gpsdisplay.showDefaultGrid({ params: { coords: coords } });
     });
     $.getForm = function () {
         return qForm.getQueryForm(qForm.qFormType.panelQuery, function (coords) {
@@ -585,13 +625,14 @@ var $gpsdisplay = $gpsdisplay || { isInit: false };
             delete i;
 
             EMap.Clear();
-            $gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
-                req: 'qcoords',
-                params: { coords: coords },
-                loaded: $gpsdisplay.DisplayDevice,
-                model: $gpsdisplay.model.track,
-                columns: $.columns
-            }));
+            //$gpsdisplay.ShowResultPanel($gpsdisplay.Grid({
+            //    req: 'qcoords',
+            //    params: { coords: coords },
+            //    loaded: $gpsdisplay.DisplayDevice,
+            //    model: $gpsdisplay.model.track,
+            //    columns: $.columns
+            //}));
+            $gpsdisplay.showDefaultGrid({ params: { coords: coords } });
         });
     };
 

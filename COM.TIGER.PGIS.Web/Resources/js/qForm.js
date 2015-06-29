@@ -812,6 +812,18 @@ var qForm = function () {
                     name: 'Name',
                     allowBlank: true
                 },
+                {
+                    xtype: 'textfield',
+                    fieldLabel: '曾用名',
+                    name: 'AliasName',
+                    allowBlank: true
+                },
+                {
+                    xtype: 'textfield',
+                    fieldLabel: '证件号码',
+                    name: 'CardNo',
+                    allowBlank: true
+                },
                 getAutoComplete({ text: '详细地址', name: 'Addr' })
                 ],
                 callback: function () {

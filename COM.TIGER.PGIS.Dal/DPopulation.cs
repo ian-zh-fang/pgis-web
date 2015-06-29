@@ -18,6 +18,17 @@ namespace COM.TIGER.PGIS.Dal
                 string.Format("size={0}", size)).Result;
         }
 
+        public Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetSYPopulation(string name, string addr, string cardno, string aliasename, int index, int size)
+        {
+            return Post<Model.TotalClass<List<Model.MPopulationBasicInfoEx>>>("PagingEntities", CONTROLNAME,
+                string.Format("name={0}", name),
+                string.Format("address={0}", addr),
+                string.Format("cardno={0}", cardno),
+                string.Format("aliasename={0}", aliasename),
+                string.Format("index={0}", index),
+                string.Format("size={0}", size)).Result;
+        }
+
         public Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetCKPopulation(string name, string addr, int index, int size)
         {
             return Post<Model.TotalClass<List<Model.MPopulationBasicInfoEx>>>("PagingCZ", CONTROLNAME,

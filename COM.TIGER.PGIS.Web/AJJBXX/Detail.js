@@ -128,7 +128,8 @@ var $ajdetail = $ajdetail || {};
         { dataIndex: 'Xm', text: '姓名', width: 60, sortable: false, hidden: false, renderer: function (a) { return String.Format('<span title="{0}">{0}</span>', a);} },
         {
             dataIndex: 'CardNo', text: '证件号码', width: 140, sortable: false, hidden: false, renderer: function (a) {
-                return a.ReplaceFormat(2, 18);
+                //return a.ReplaceFormat(2, 18);
+                return a;
             }
         },
         {

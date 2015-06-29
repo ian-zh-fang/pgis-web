@@ -235,10 +235,16 @@ var trackOnDevice = trackOnDevice || {};
                 width: 350,
                 height:370,
                 callback: function () {
+                    DoStopPlay();
+                    DoLogout();
                     ExtHelper.CameraPlayEx(options.data);
                 }
             });
             var wind = ExtHelper.CreateWindow({ title: '监控设备查看', layout: 'border', height: 373, resizable: false });
+            wind.on('close', function () {
+                DoStopPlay();
+                DoLogout();
+            });
             wind.add({
                 region: 'west',
                 //layout: 'fit',

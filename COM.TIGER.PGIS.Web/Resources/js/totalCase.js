@@ -103,22 +103,22 @@ var $ttcase = $ttcase || {};
             border: 0,
             items: [{
                 xtype: 'panel',
-                html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">本年案件数</span>：{0} 件", defaults.ThisYearTickCount),
+                html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">本年警情数</span>：{0} 件", defaults.ThisYearTickCount),
                 border: 0,
                 style: String.Format('height:{0}px; line-height:{0}px;', height)
             }, {
                 xtype: 'panel',
-                html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">本月案件数</span>：{0} 件", defaults.ThisMonthTickCount),
+                html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">本月警情数</span>：{0} 件", defaults.ThisMonthTickCount),
                 border: 0,
                 style: String.Format('height:{0}px; line-height:{0}px;', height)
             }, {
                 xtype: 'panel',
-                html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">本周案件数</span>：{0} 件", defaults.ThisWeekTickCount),
+                html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">本周警情数</span>：{0} 件", defaults.ThisWeekTickCount),
                 border: 0,
                 style: String.Format('height:{0}px; line-height:{0}px;', height)
             }, {
                 xtype: 'panel',
-                html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">本日案件数</span>：{0} 件", defaults.TodayTickCount),
+                html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">本日警情数</span>：{0} 件", defaults.TodayTickCount),
                 border: 0,
                 style: String.Format('height:{0}px; line-height:{0}px;', height)
             }]

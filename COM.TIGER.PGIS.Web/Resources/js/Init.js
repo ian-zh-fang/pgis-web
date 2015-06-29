@@ -103,6 +103,7 @@ var toolCenterMenu = new Ext.menu.Menu({
     }
 });
 
+var gpshandlerinterval = null;
 var CreateViewport = function () {
     Ext.create('Ext.container.Viewport', {
         layout: 'border',
@@ -152,7 +153,50 @@ var CreateViewport = function () {
                 items: [{
                     //text: '工具栏',
                     iconCls: 'bbookmark'
-                }, '<a href="#" target="_blank">帮助</a>', '->', {
+                }, '<a href="#" target="_blank">帮助</a>', '->',{
+                    text: '实时警力分布',
+                    handler: function () {
+                        //
+                        if (gpshandlerinterval) {
+                            clearInterval(gpshandlerinterval);
+                            gpshandlerinterval = null;
+                        }
+
+                        function loadHd(c) {
+                            if (typeof $gpsdisplay !== 'undefined') {
+                                return c();
+                            }
+
+                            Ext.Loader.loadScript({
+                                url: 'GlobalPostionSystem/display.js', onLoad: function () {
+                                    c();
+                                }
+                            });
+                        }
+
+                        loadHd(function () {
+                            $gpsdisplay.showDefaultGrid();
+                            gpshandlerinterval = setInterval(function () {
+                                $gpsdisplay.showDefaultGrid();
+                            }, 20000)
+
+                            errorState.show('实时警力分布已开始。<br /><br /><span style="font-size:14px; font-weight:700; color:red;">注意：</span>数据大约会有1分钟的延迟。');
+                        });
+                    },
+                    iconCls: 'bcase'
+                }, {
+                    text: '停止警力分布',
+                    handler: function () {
+                        if (gpshandlerinterval) {
+                            clearInterval(gpshandlerinterval);
+                            gpshandlerinterval = null;
+                        }
+
+                        errorState.show('实时警力分布已停止。');
+                        
+                    },
+                    iconCls: 'bstop'
+                }, {
                     text: '实时三台合一',
                     handler: function () {
                         //

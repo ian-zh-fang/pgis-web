@@ -59,5 +59,10 @@ namespace COM.TIGER.PGIS.AddIn.Population
         {
             return _instance.GetKXPopulation(coords, index, size);
         }
+        
+        public Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetSYPopulation(string name, string addr, string cardno, string aliasename, int index, int size)
+        {
+            return _instance.GetSYPopulation(name, addr, cardno, aliasename, index, size);
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace COM.TIGER.PGIS.IFun
     public interface IPopulation
     {
         Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetSYPopulation(string name, string addr, int index, int size);
+        Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetSYPopulation(string name, string addr, string cardno, string aliasename, int index, int size);
 
         Model.TotalClass<List<Model.MPopulationBasicInfoEx>> GetCKPopulation(string name, string addr, int index, int size);
 

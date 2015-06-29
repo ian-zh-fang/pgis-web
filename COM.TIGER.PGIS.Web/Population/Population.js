@@ -427,12 +427,12 @@ var populationQuery = populationQuery || {};
                         height: 50,
                         items: [{
                             xtype: 'panel',
-                            html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">家庭住址</span>：{0}", defaults.HomeAddress),
+                            html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">户籍地址</span>：{0}", defaults.HomeAddress),
                             border: 0,
                             style: 'height:22px; line-height:22px;'
                         }, {
                             xtype: 'panel',
-                            html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">当前住址</span>：{0}", defaults.CurrentAddress),
+                            html: String.Format("<span style=\"font-weight:700; font-size:11px; color:#15498b;\">现住地址</span>：{0}", defaults.CurrentAddress),
                             border: 0,
                             style: 'height:22px; line-height:22px;'
                         }]

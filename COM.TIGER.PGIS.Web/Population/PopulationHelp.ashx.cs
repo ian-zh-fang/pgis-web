@@ -103,11 +103,13 @@ namespace COM.TIGER.PGIS.Web.Population
         {
             var request = HttpContext.Current.Request;
             var name = request["Name"];
+            string cardno = request["CardNo"];
+            string aliasname = request["AliasName"];
             var addr = request["Addr"];
             if (addr == "null")
                 addr = string.Empty;
 
-            var data = _instance.GetSYPopulation(name, addr, CurrentPage, PagerSize);
+            var data = _instance.GetSYPopulation(name, addr, cardno, aliasname, CurrentPage, PagerSize);
             ExecuteSerialzor(data);
         }
 
